@@ -18,5 +18,4 @@ The Weather App allows users to get current weather information and forecasts fo
 
 ## How to Run the Project Locally
 1. Clone the Repository: 
-   ```bash
-   git clone <https://github.com/PreetySinha84/Weather-App.git>
+   git clone <https://github.com/PreetySinha84/VerveBridge-Task-1-Weather-App.git>
