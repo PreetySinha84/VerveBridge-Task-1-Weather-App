@@ -1,0 +1,162 @@
+/*import google font - Open Sans */
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap');
+/* Resetting margin, padding, and setting font for all elements */
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Open Sans", sans-serif;
+}
+/* Styling for the body background image */
+body{
+    background-image:url(sky.jpg); /* Image used for the main background */
+    background-size: cover; /* Ensures image covers the entire screen */
+    background-repeat: no-repeat; /* Prevents image from repeating */
+    background-position: center; /* Centers the image */
+    color: #ffffff; /* Sets default text color */
+}
+h1 {
+    color: #fff;
+    padding: 18px 0;
+    text-align: center;
+    font-size: 1.75rem;
+    background: #000; /* Background color for the header */
+
+}
+.container{
+    display: flex; /* Creates a flex container */
+    gap: 35px; /* Adds space between items */
+    padding: 30px; /* Padding around the container */
+    color: #000; /* Text color */
+    font-size: x-large; /* Text size */
+}
+.weather-input{
+    width: 50%; /* Takes half the width of the container */
+}
+.weather-input input{
+    width: 100%; /* Input field takes full width */
+    height:46px; /* Fixed height for the input */
+    outline: none; /* Removes default input outline */
+    padding: 0 15px; /* Padding inside the input */
+    margin: 10px 0 20px 0; /* Margin above and below */
+    font-size: 1.07rem; /* Sets font size */
+    border-radius: 4px; /* Rounded corners */
+    border: 1px solid ; /* Adds a solid border */
+}
+.weather-input .separator {
+    height:1px; /* Sets separator height */
+    width: 100%; /* Full width separator */
+    margin: 25px 0; /* Spacing around separator */
+    background: #D8BFD8; /* Light color for the line */
+    display: flex; /* Flexbox for centering */
+    align-items: center; /* Centers items vertically */
+    justify-content: center; /* Centers items horizontally */
+}
+.weather-input .separator::before{
+    content: "or"; /* Displays 'or' text in the separator */
+    color: #fff; /* Text color */
+    font-size: 1.18rem; /* Font size for the text */
+    padding: 0 15px; /* Spacing around text */
+    margin-top: -4px; /* Adjusts position */
+    background: #4c056a; /* Background color for the text */
+}
+.weather-input button {
+    width: 100%; /* Full-width button */
+    padding: 10px 0; /* Vertical padding */
+    cursor: pointer; /* Changes cursor to pointer on hover */
+    outline: none; /* Removes outline */
+    border: none; /* No border */
+    color: #fff; /* White text */
+    font-size: 1rem; /* Font size */
+    border-radius: 4px; /* Rounded corners */
+    background: #4c056a; /* Background color for the button */
+}
+.weather-input .location-btn {
+    background: #4c056a; /* Same background as the search button */
+    }
+.weather-data{
+    width: 100%; /* Full width for the weather data section */
+}
+.current-weather {
+    color: #fff; /* White text */
+    display: flex; /* Flexbox layout */
+    border-radius: 5px; /* Rounded corners */
+    padding: 20px 70px 20px 20px; /* Padding on all sides */
+    background: #4c056a; /* Background color for weather details */
+    justify-content: space-between; /* Space between items */
+}
+.current-weather h2 {
+    font-size: 1.7rem; /* Heading font size */
+}
+.weather-data h4 {
+    margin-top: 12px; /* Margin above headings */
+    font-size: 1rem; /* Font size */
+    font-weight: 500; /* Medium font weight */
+}
+.current-weather .icon {
+    text-align: center; /* Center text and image */
+}
+.current-weather .icon img {
+    max-width: 120px; /* Max width for weather icons */
+    margin-top: -15px; /* Adjusts image position */
+}
+.current-weather .icon h4 {
+    margin-top: -10px; /* Adjusts heading position */
+    text-transform: capitalize; /* Capitalizes text */
+}
+.days-forecast h2 {
+    font-size: 1.5rem; /* Font size for 5-days forecast heading */
+    margin: 20px 0; /* Margin above and below */
+    color: #000; /* Text color */
+    font-size: xx-large; /* Font size */
+}
+.weather-cards {
+    display: flex; /* Flexbox for weather cards */
+    gap: 20px; /* Space between cards */
+}
+.weather-cards .card {
+    list-style: none; /* Removes bullet points */
+    color: #fff; /* Text color */
+    padding: 18px 16px; /* Padding inside cards */
+    border-radius: 5px; /* Rounded corners */
+    background: #4c056a; /* Background color for cards */
+    width: calc(100% / 5); /* Responsive width */
+}
+.weather-cards .card img {
+    max-width: 70px; /* Max width for images in cards */
+    margin: 5px 0 -12px 0; /* Adjusts image spacing */
+}
+
+@media (max-width:1400px) {
+    .weather-data .current-weather {
+        padding: 20px; /* Adjust padding for smaller screens */
+    }
+    .weather-cards {
+        flex-wrap: wrap; /* Wraps cards in rows */
+    }
+    .weather-cards .card {
+        width: calc(100% / 4 - 15px); /* Adjusts card width */
+}
+}
+@media (max-width:1200px) {
+    .weather-cards .card {
+        width: calc(100% / 3 - 15px); /* Adjusts card width */
+  }
+}
+@media (max-width:950px) {
+    .weather-input {
+        width: 450px; /* Sets a fixed width */
+    }
+.weather-cards .card {
+    width: calc(100% / 2 - 10px); /* Adjusts card width */
+}
+}
+@media (max-width:750px) {
+    .container {
+        flex-wrap: wrap; /* Wraps container items */
+        padding: 15px; /* Adjust padding */
+    }
+    .weather-input {
+        width: 100%; /* Full width input on smaller screens */
+    }
+}
