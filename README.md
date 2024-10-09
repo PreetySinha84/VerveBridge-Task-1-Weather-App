@@ -19,4 +19,4 @@ The Weather App allows users to get current weather information and forecasts fo
 ## How to Run the Project Locally
 1. Clone the Repository: 
    ```bash
-   git clone <repository_url>
+   git clone <https://github.com/PreetySinha84/Weather-App.git>
