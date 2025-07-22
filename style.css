@@ -6,6 +6,7 @@
     padding: 0;
     box-sizing: border-box;
     font-family: "Open Sans", sans-serif;
+    
 }
 /* Styling for the body background image */
 body{
@@ -14,6 +15,7 @@ body{
     background-repeat: no-repeat; /* Prevents image from repeating */
     background-position: center; /* Centers the image */
     color: #ffffff; /* Sets default text color */
+    min-height: 100vh;
 }
 h1 {
     color: #fff;
