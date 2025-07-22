@@ -20,14 +20,14 @@ h1 {
     padding: 18px 0;
     text-align: center;
     font-size: 1.75rem;
-    background: #000; /* Background color for the header */
+    background: rgba(128, 0, 128, 0.5); /* Background color for the header */
 
 }
 .container{
     display: flex; /* Creates a flex container */
     gap: 35px; /* Adds space between items */
     padding: 30px; /* Padding around the container */
-    color: #000; /* Text color */
+    color: #ffffff; /* Text color */
     font-size: x-large; /* Text size */
 }
 .weather-input{
@@ -58,7 +58,7 @@ h1 {
     font-size: 1.18rem; /* Font size for the text */
     padding: 0 15px; /* Spacing around text */
     margin-top: -4px; /* Adjusts position */
-    background: #4c056a; /* Background color for the text */
+    background: rgba(128, 0, 128, 0.5); /* Background color for the text */
 }
 .weather-input button {
     width: 100%; /* Full-width button */
@@ -69,10 +69,11 @@ h1 {
     color: #fff; /* White text */
     font-size: 1rem; /* Font size */
     border-radius: 4px; /* Rounded corners */
-    background: #4c056a; /* Background color for the button */
+    background: rgba(128, 0, 128, 0.5); /* Background color for the button */
 }
 .weather-input .location-btn {
-    background: #4c056a; /* Same background as the search button */
+    background: rgba(128, 0, 128, 0.5); /* Same background as the search button */
+    color: #fff
     }
 .weather-data{
     width: 100%; /* Full width for the weather data section */
@@ -82,11 +83,17 @@ h1 {
     display: flex; /* Flexbox layout */
     border-radius: 5px; /* Rounded corners */
     padding: 20px 70px 20px 20px; /* Padding on all sides */
-    background: #4c056a; /* Background color for weather details */
+    background: rgba(128, 0, 128, 0.5); /* Background color for weather details */
     justify-content: space-between; /* Space between items */
 }
 .current-weather h2 {
     font-size: 1.7rem; /* Heading font size */
+}
+.weather-input h3 {
+    font-size: 1.5rem; /* Font size for 5-days forecast heading */
+    margin: 20px 0; /* Margin above and below */
+    color: #000; /* Text color */
+    font-size: xx-large; /* Font size */ 
 }
 .weather-data h4 {
     margin-top: 12px; /* Margin above headings */
@@ -110,16 +117,17 @@ h1 {
     color: #000; /* Text color */
     font-size: xx-large; /* Font size */
 }
+
 .weather-cards {
     display: flex; /* Flexbox for weather cards */
     gap: 20px; /* Space between cards */
 }
 .weather-cards .card {
     list-style: none; /* Removes bullet points */
-    color: #fff; /* Text color */
+    color: #ffffff; /* Text color */
     padding: 18px 16px; /* Padding inside cards */
     border-radius: 5px; /* Rounded corners */
-    background: #4c056a; /* Background color for cards */
+    background: rgba(128, 0, 128, 0.5); /* Background color for cards */
     width: calc(100% / 5); /* Responsive width */
 }
 .weather-cards .card img {
