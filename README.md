@@ -35,8 +35,6 @@ Hover effect for weather cards(5-days forecast)
 - 🕔 5-Day Forecast: Displays upcoming weather including temperature, wind speed, and humidity.
 - 🎨 Responsive Design: Fully responsive layout optimized for desktops and mobile devices.
 
-## 🖼️ Preview
-<img width="1852" height="929" alt="image" src="https://github.com/user-attachments/assets/5f499971-2ed9-4135-95a2-b00f1e44dcd2" />
 
 ## 🛠️ Technologies Used
 - HTML5
