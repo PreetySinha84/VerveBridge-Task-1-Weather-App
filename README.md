@@ -1,21 +1,55 @@
-# Weather App
+# 🌤️ Weather App
+A responsive weather dashboard that lets users search for current weather and a 5-day forecast by city name or use their current location. Built with HTML, CSS, and JavaScript using the OpenWeatherMap API.
 
-## Project Objective
-The Weather App allows users to get current weather information and forecasts for different locations. It uses a weather API to fetch real-time data based on user input.
+## 🚀 Features
+- 🔍 Search by City: Type in any city to get its current weather and forecast.
+- 📍 Use Current Location: Automatically fetches weather for your current location using geolocation.
+- 🕔 5-Day Forecast: Displays upcoming weather including temperature, wind speed, and humidity.
+- 🎨 Responsive Design: Fully responsive layout optimized for desktops and mobile devices.
 
-## Features
-- Current Weather Information: Displays temperature, humidity, wind speed, and weather conditions.
-- 5-Day Weather Forecast: Provides an extended weather forecast for the next five days.
-- Search Functionality: Users can search for weather information by entering a city name.
-- Responsive Design: Works seamlessly on both desktop and mobile devices.
-- User-Friendly Interface: Easy to navigate, enhancing the user experience.
+## 🖼️ Preview
+<img width="1852" height="929" alt="image" src="https://github.com/user-attachments/assets/5f499971-2ed9-4135-95a2-b00f1e44dcd2" />
 
-## Technologies Used
-- Programming Language: JavaScript
-- Weather API: OpenWeatherMap 
-- Styling: CSS
-- *Version Control*: Git and GitHub
+## 🛠️ Technologies Used
+- HTML5
+- CSS3 (with media queries for responsiveness)
+- JavaScript (Vanilla)
+- OpenWeatherMap API
 
-## How to Run the Project Locally
-1. Clone the Repository: 
-   git clone <https://github.com/PreetySinha84/VerveBridge-Task-1-Weather-App.git>
+## 🧾 Setup Instructions
+1. Clone the Repository
+```bash
+git clone https://github.com/your-username/weather-app.git
+cd weather-app
+```
+
+2. Get Your API Key
+Go to OpenWeatherMap
+Create a free account and generate an API key
+
+3. Add Your API Key
+Replace the API key string in script.js with your own:
+```bash
+const API_KEY = "YOUR_API_KEY_HERE";
+```
+
+5. Open in Browser
+You can open index.html directly in a browser or use a live server (VS Code extension recommended).
+
+## 📂 File Structure
+```bash
+weather-app/
+│
+├── Readme.md          # Project documentation
+├── index.html         # Main HTML page
+├── style.css          # All styling
+├── script.js          # Core logic, API integration
+└── sky.jpg            # Background image
+```
+
+## ❗ Notes
+- Make sure location permission is allowed for the geolocation feature to work.
+- Temperature is shown in °C and wind in meters per second (M/S).
+
+## Contribution
+Feel free to fork this repository, give it a ⭐, or contribute with improvements!
