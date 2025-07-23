@@ -1,103 +1,166 @@
-const cityInput = document.querySelector(".city-input"); // Selects the input field for the city name
-const searchButton = document.querySelector(".search-btn"); // Selects the button for searching weather by city
-const locationButton = document.querySelector(".location-btn"); // Selects the button for getting the user's current location
-const currentWeatherDiv = document.querySelector(".current-weather"); // Div to display the current weather details
-const weatherCardsDiv = document.querySelector(".weather-cards"); // Div to display the weather forecast cards
+// Grabbing DOM elements for interaction
+const cityInput = document.querySelector(".city-input");
+const searchButton = document.querySelector(".search-btn");
+const locationButton = document.querySelector(".location-btn");
+const currentWeatherDiv = document.querySelector(".current-weather");
+const weatherCardsDiv = document.querySelector(".weather-cards");
+const weatherDataContainer = document.querySelector(".weather-data");
+const weatherInputContainer = document.querySelector(".weather-input");
 
-const API_KEY = "92d96435984d109b204dfce4606d8f45"; // OpenWeatherMap API key for accessing weather data
+const unitToggleDiv = document.querySelector(".unit-toggle");
+const unitToggle = document.getElementById("unit-toggle");
+const unitLabel = document.querySelector(".unit-label");
 
-// Function to create HTML for displaying weather details for the current day and forecast cards 
+// Track whether Celsius is the selected unit
+let useCelsius = true;
 
-const  createWeatherCard = (cityName, weatherItem, index) => {
-    if(index === 0){  // If it's the first item (current day weather)
-         return `<div class="details">
-                    <h2>${cityName} (${weatherItem.dt_txt.split(" ")[0]})</h2> 
-                    <h4>Temperature: ${(weatherItem.main.temp - 273.15).toFixed(2)}°𝐂</h4> 
+// Your OpenWeatherMap API key
+const API_KEY = "92d96435984d109b204dfce4606d8f45";
+
+// Hide results and unit toggle by default
+weatherDataContainer.classList.add("hidden");
+unitToggleDiv.classList.add("hidden");
+weatherInputContainer.classList.add("center-input");
+
+// Handle temperature unit toggle
+unitToggle.addEventListener("change", () => {
+    useCelsius = !unitToggle.checked; // If toggle is checked, use Fahrenheit
+    unitLabel.textContent = useCelsius ? "°C" : "°F"; // Update label
+
+    // If weather is already shown, update it with the new unit
+    if (!weatherDataContainer.classList.contains("hidden")) {
+        const cityName = document.querySelector(".current-weather h2")?.textContent;
+        if (cityName) {
+            const GEO_URL = `https://api.openweathermap.org/geo/1.0/direct?q=${cityName}&limit=1&appid=${API_KEY}`;
+            fetch(GEO_URL)
+                .then(res => res.json())
+                .then(data => {
+                    if (!data.length) return;
+                    const { name, lat, lon } = data[0];
+                    getWeatherDetails(name, lat, lon); // Refresh with new unit
+                });
+        }
+    }
+});
+
+// Template to build weather cards (both current and forecast)
+const createWeatherCard = (cityName, weatherItem, index) => {
+    const kelvin = weatherItem.main.temp;
+
+    // Convert temperature based on unit toggle
+    const temp = useCelsius
+        ? (kelvin - 273.15).toFixed(2) + "°C"
+        : ((kelvin - 273.15) * 9 / 5 + 32).toFixed(2) + "°F";
+
+    // Format the date for forecast cards
+    const dateObj = new Date(weatherItem.dt_txt);
+    const formattedDate = dateObj.toLocaleDateString("en-US", {
+        weekday: "long",
+        month: "short",
+        day: "numeric"
+    });
+
+    // First card: current weather (larger, full-width)
+    if (index === 0) {
+        return `<div class="details">
+                    <h2>${cityName}</h2> 
+                    <h4>Temperature: ${temp}</h4> 
                     <h4>Wind: ${weatherItem.wind.speed} M/S</h4> 
                     <h4>Humidity: ${weatherItem.main.humidity}%</h4> 
-                </div>
-                <div class="icon">
-                    <img src="https://openweathermap.org/img/wn/${weatherItem.weather[0].icon}@4x.png" alt="weather-icon">
-                    <h4>${weatherItem.weather[0].description}</h4>
                 </div>`;
-    } else { // For other days (forecast cards)
-    return `<li class="card">
-                <h3>(${weatherItem.dt_txt.split(" ")[0]})</h3>
-                <img src="https://openweathermap.org/img/wn/${weatherItem.weather[0].icon}@2x.png" alt="weather-icon">
-                <h4>Temp: ${(weatherItem.main.temp - 273.15).toFixed(2)}°𝐂</h4>
-                <h4>Wind: ${weatherItem.wind.speed} M/S</h4>
-                <h4>Humidity: ${weatherItem.main.humidity}%</h4>
-                </li>` ;
+    } else {
+        // Remaining cards: 5-day forecast
+        return `<li class="card">
+                    <h3>${formattedDate}</h3>
+                    <h4>Temp: ${temp}</h4>
+                    <h4>Wind: ${weatherItem.wind.speed} M/S</h4>
+                    <h4>Humidity: ${weatherItem.main.humidity}%</h4>
+                </li>`;
     }
-}
-// Fetches weather details for the specified city using its coordinates (latitude and longitude)
+};
+
+// Fetch weather using latitude and longitude
 const getWeatherDetails = (cityName, lat, lon) => {
     const WEATHER_API_URL = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${API_KEY}`;
 
-    fetch( WEATHER_API_URL).then(res => res.json()).then(data => {
-        const uniqueForecastDays = []; // Array to keep track of unique forecast dates
-        const fiveDaysForecast = data.list.filter(forecast => {
-            const forecastDate = new Date(forecast.dt_txt).getDate(); // Extracts the date from the forecast timestamp
-            if(!uniqueForecastDays.includes(forecastDate)) { // Check if the date is unique
-                return uniqueForecastDays.push(forecastDate); // Adds unique date to the array
-            }
-        });
-        
-        cityInput.value = ""; // Clear the city input field 
-        currentWeatherDiv.innerHTML = ""; // Clears current weather div
-        weatherCardsDiv.innerHTML = "";   // Clears forecast cards div
-        
-        // Loop through the filtered forecast data and display it on the page
+    fetch(WEATHER_API_URL)
+        .then(res => res.json())
+        .then(data => {
+            const uniqueForecastDays = [];
 
+            // Filter out one forecast per day (only 5 days)
+            const fiveDaysForecast = data.list.filter(forecast => {
+                const forecastDate = new Date(forecast.dt_txt).getDate();
+                if (!uniqueForecastDays.includes(forecastDate)) {
+                    return uniqueForecastDays.push(forecastDate);
+                }
+            });
+
+            // Clear old results
+            cityInput.value = "";
+            currentWeatherDiv.innerHTML = "";
+            weatherCardsDiv.innerHTML = "";
+
+            // Show weather section and toggle
+            weatherDataContainer.classList.remove("hidden");
+            unitToggleDiv.classList.remove("hidden");
+            weatherInputContainer.classList.remove("center-input");
+
+            // Render weather cards
             fiveDaysForecast.forEach((weatherItem, index) => {
-            if(index === 0) { // First item is the current weather
-                currentWeatherDiv.insertAdjacentHTML("beforeend", createWeatherCard(cityName, weatherItem, index));
-            } else { // Other items are forecast cards
-                weatherCardsDiv.insertAdjacentHTML("beforeend", createWeatherCard(cityName, weatherItem, index));
-            }
-       });
-}).catch(() => {
-            alert("An error occurred while fetching the weather forecast!"); // Error handling for failed API request
-        });
-}
-// Function to get the latitude and longitude of a given city
+                const cardHTML = createWeatherCard(cityName, weatherItem, index);
+                if (index === 0) {
+                    currentWeatherDiv.insertAdjacentHTML("beforeend", cardHTML);
+                } else {
+                    weatherCardsDiv.insertAdjacentHTML("beforeend", cardHTML);
+                }
+            });
+        })
+        .catch(() => alert("An error occurred while fetching the weather forecast!"));
+};
 
+// Get coordinates from city name (search input)
 const getCityCoordinates = () => {
-       const cityName = cityInput.value.trim(); // Gets the city name from the input field and trims any whitespace
-       if(!cityName) return; // If the input is empty, exit the function
-       const GEOCODING_API_URL = `http://api.openweathermap.org/geo/1.0/direct?q=${cityName}&limit=1&appid=${API_KEY}`;
+    const cityName = cityInput.value.trim(); // Remove extra spaces
+    if (!cityName) return; // Do nothing if input is empty
 
-       fetch(GEOCODING_API_URL).then(res => res.json()).then(data => {
-        if(!data.length) return alert(`No coordinates found for ${cityName}`); // If no coordinates are found, show an alert
-        const { name, lat, lon } = data[0]; // Destructures the first result from the data
-        getWeatherDetails(name, lat, lon); // Calls the function to get weather details using coordinates
-}).catch(() => {
-    alert("An error occurred while fetching the coordinates!"); // Error handling for failed API request
-});
-}
+    const GEOCODING_API_URL = `https://api.openweathermap.org/geo/1.0/direct?q=${cityName}&limit=1&appid=${API_KEY}`;
 
-// Function to get the user's current location coordinates using the browser's geolocation API
+    fetch(GEOCODING_API_URL)
+        .then(res => res.json())
+        .then(data => {
+            if (!data.length) return alert(`No coordinates found for ${cityName}`);
+            const { name, lat, lon } = data[0];
+            getWeatherDetails(name, lat, lon); // Fetch weather using coordinates
+        })
+        .catch(() => alert("An error occurred while fetching the coordinates!"));
+};
 
+// Use browser geolocation to get current position
 const getUserCoordinates = () => {
     navigator.geolocation.getCurrentPosition(
-        position => { // If the user allows geolocation access
-            const { latitude, longitude} = position.coords; // Destructures the latitude and longitude
-            const REVERSE_GEOCODING_URL = `http://api.openweathermap.org/geo/1.0/reverse?lat=${latitude}&lon=${longitude}&limit=1&appid=${API_KEY}`;
-            fetch(REVERSE_GEOCODING_URL).then(res => res.json()).then(data => {
-                const { name } = data[0]; // Gets the city name from reverse geocoding response
-                getWeatherDetails(name, latitude, longitude); // Calls the function to get weather details using coordinates
-        }).catch(() => {
-            alert("An error occurred while fetching the city!"); // Error handling for failed API request
-        });
+        position => {
+            const { latitude, longitude } = position.coords;
+
+            const REVERSE_GEOCODING_URL = `https://api.openweathermap.org/geo/1.0/reverse?lat=${latitude}&lon=${longitude}&limit=1&appid=${API_KEY}`;
+
+            fetch(REVERSE_GEOCODING_URL)
+                .then(res => res.json())
+                .then(data => {
+                    const { name } = data[0];
+                    getWeatherDetails(name, latitude, longitude);
+                })
+                .catch(() => alert("An error occurred while fetching the city!"));
         },
         error => {
-            if(error.code === error.PERMISSION_DENIED) { // If user denies geolocation access
+            if (error.code === error.PERMISSION_DENIED) {
                 alert("Geolocation request denied. Please reset location permission to grant access again.");
             }
         }
     );
-}
-// Event listeners for button clicks and "Enter" key press
-locationButton.addEventListener("click", getUserCoordinates); // Fetch weather based on current location
-searchButton.addEventListener("click", getCityCoordinates); // Fetch weather based on city input
-cityInput.addEventListener("keyup", e => e.key === "Enter" && getCityCoordinates()); // Enter key triggers search
+};
+
+// Event listeners for user actions
+locationButton.addEventListener("click", getUserCoordinates); // Use location
+searchButton.addEventListener("click", getCityCoordinates); // Click search
+cityInput.addEventListener("keyup", e => e.key === "Enter" && getCityCoordinates()); // Enter key
