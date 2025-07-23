@@ -89,6 +89,8 @@ const getUserCoordinates = () => {
             fetch(REVERSE_GEOCODING_URL).then(res => res.json()).then(data => {
                 const { name } = data[0]; // Gets the city name from reverse geocoding response
                 getWeatherDetails(name, latitude, longitude); // Calls the function to get weather details using coordinates
+                weatherData.style.display = 'block'
+                document.body.style.overflowY = 'visible'
         }).catch(() => {
             alert("An error occurred while fetching the city!"); // Error handling for failed API request
         });
