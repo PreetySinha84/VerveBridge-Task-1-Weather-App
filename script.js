@@ -3,10 +3,10 @@ const searchButton = document.querySelector(".search-btn"); // Selects the butto
 const locationButton = document.querySelector(".location-btn"); // Selects the button for getting the user's current location
 const currentWeatherDiv = document.querySelector(".current-weather"); // Div to display the current weather details
 const weatherCardsDiv = document.querySelector(".weather-cards"); // Div to display the weather forecast cards
+const weatherData = document.querySelector('.weather-data')
 
-const API_KEY = "92d96435984d109b204dfce4606d8f45"; // OpenWeatherMap API key for accessing weather data
-
-// Function to create HTML for displaying weather details for the current day and forecast cards 
+const API_KEY = "92d96435984d109b204dfce4606d8f45"; //OpenWeather Map API KEY
+// Function to create HTML for displaying weather details for the current day and forecast cards
 
 const  createWeatherCard = (cityName, weatherItem, index) => {
     if(index === 0){  // If it's the first item (current day weather)
@@ -56,6 +56,9 @@ const getWeatherDetails = (cityName, lat, lon) => {
                 weatherCardsDiv.insertAdjacentHTML("beforeend", createWeatherCard(cityName, weatherItem, index));
             }
        });
+       weatherData.style.display = 'block'
+       document.body.style.overflowY = 'visible'
+
 }).catch(() => {
             alert("An error occurred while fetching the weather forecast!"); // Error handling for failed API request
         });
