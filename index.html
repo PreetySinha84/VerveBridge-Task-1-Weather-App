@@ -1,83 +1,41 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <!--metadata and links for styling and scripts-->
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="script.js" defer></script> <!-- links the JavaScript file, scripts.js,and defer loading until HTML is parsed -->
-    <title>Weather App</title>
-    <link rel="stylesheet" href="style.css"> <!-- links the CSS file, style.css, for styling -->
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Weather App</title>
+  <link rel="stylesheet" href="style.css" />
+  <script src="script.js" defer></script>
 </head>
 <body>
-    <!-- main heading of the page -->
-    <h1>Weather Dashboard</h1>
-    <!-- main container to hold all the weather input and display components -->
-    <div class="container">
-        <!-- section for user input to search by city or use current location -->
-        <div class="weather-input">
-            <h3>Enter a City Name</h3>
-            <!-- input box for entering the city name -->
-            <input class="city-input" type="text" placeholder="E.g., New York, London,Tokyo">
-            <button class="search-btn">Search</button>
-            <!-- search button to get weather data for the entered city -->
-            <div class="separator"></div>
-            <!-- optional separator for styling or layout -->
-            <button class="location-btn">Use Current Location</button>
-            <!-- button to fetch weather data using the current location -->
-        </div>
-        <!-- section to display weather data -->
-            <div class="weather-data">
-        <!-- current weather details container -->
-            <div class="current-weather">
-                <div class="details">
-        <!-- Placeholder headings for displaying current city, temperature, wind speed, and humidity -->
-                    <h2>_______ ( _______ )</h2>
-                    <h4>Temp: ___°𝐂</h4>
-                    <h4>Wind: __M/S</h4>
-                    <h4>Humidity: __%</h4>
-             </div>
-        </div>
-        <!-- section to display a 5-day forecast -->
-        <div class="days-forecast">
-            <h2>5-Days Forecast</h2>
-            <!-- unordered list to hold individual forecast cards for each day -->
-            <ul class="weather-cards">
-            <!-- each <li> represents a card for a day's forecast -->
-                <li class="card">
-                <h3>( _______ )</h3>
-                <!-- placeholder for date or day -->
-                <h4>Temp: ___°𝐂</h4>
-                <h4>Wind: __M/S</h4>
-                <h4>Humidity: __%</h4>
-                </li>
-                <!-- repeat structure for remaining days -->
-                <li class="card">
-                <h3>( _______ )</h3>
-                <h4>Temp: ___°𝐂</h4>
-                <h4>Wind: __M/S</h4>
-                <h4>Humidity: __%</h4>
-                </li>
-                <li class="card">
-                <h3>( _______ )</h3>
-                <h4>Temp: ___°𝐂</h4>
-                <h4>Wind: __M/S</h4>
-                <h4>Humidity: __%</h4>
-                </li>
-                <li class="card">
-                <h3>( _______ )</h3>
-                <h4>Temp: ___°𝐂</h4>
-                <h4>Wind: __M/S</h4>
-                <h4>Humidity: __%</h4>
-                </li>
-                <li class="card">
-                <h3>( _______ )</h3>
-                <h4>Temp: ___°𝐂</h4>
-                <h4>Wind: __M/S</h4>
-                <h4>Humidity: __%</h4>
-                </li>
-           </ul>
+  <h1>Weather Dashboard</h1>
+  <div class="container">
+    <!-- Left section: Input and buttons -->
+    <div class="weather-input center-input">
+      <h3>Enter a City Name</h3>
+      <input class="city-input" type="text" placeholder="E.g., New York, London, Tokyo"/>
+      <button class="search-btn btn">Search</button>
+      <div class="separator"></div>
+      <button class="location-btn btn">Use Current Location</button>
+
+      <!-- Unit toggle (hidden by default) -->
+      <div class="unit-toggle hidden">
+        <label class="switch">
+          <input type="checkbox" id="unit-toggle" />
+          <span class="slider round"></span>
+        </label>
+        <span class="unit-label">°C</span>
+      </div>
     </div>
-</div>
+
+    <!-- Right section: Weather data -->
+    <div class="weather-data hidden">
+      <div class="current-weather"></div>
+      <div class="days-forecast">
+        <h2>5-Days Forecast</h2>
+        <ul class="weather-cards"></ul>
+      </div>
     </div>
+  </div>
 </body>
 </html>
