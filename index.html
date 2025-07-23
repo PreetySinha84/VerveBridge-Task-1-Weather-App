@@ -1,39 +1,56 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en"> <!-- Set language to English -->
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Weather App</title>
+  <meta charset="UTF-8" /> <!-- Character encoding -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/> <!-- Responsive scaling on mobile -->
+  <title>Weather App</title> <!-- Page title in browser tab -->
+
+  <!-- Link to external CSS -->
   <link rel="stylesheet" href="style.css" />
+  
+  <!-- Link to external JavaScript (defer: wait till DOM loads) -->
   <script src="script.js" defer></script>
 </head>
+
 <body>
+  <!-- Page header -->
   <h1>Weather Dashboard</h1>
+
+  <!-- Main wrapper for inputs and weather data -->
   <div class="container">
-    <!-- Left section: Input and buttons -->
+    
+    <!-- Left side: input section -->
     <div class="weather-input center-input">
       <h3>Enter a City Name</h3>
+      
+      <!-- Text input for city -->
       <input class="city-input" type="text" placeholder="E.g., New York, London, Tokyo"/>
+      
+      <!-- Search button -->
       <button class="search-btn btn">Search</button>
+
+      <!-- Separator with "or" -->
       <div class="separator"></div>
+
+      <!-- Button to fetch weather by location -->
       <button class="location-btn btn">Use Current Location</button>
 
-      <!-- Unit toggle (hidden by default) -->
+      <!-- Celsius/Fahrenheit toggle (hidden by default) -->
       <div class="unit-toggle hidden">
         <label class="switch">
-          <input type="checkbox" id="unit-toggle" />
-          <span class="slider round"></span>
+          <input type="checkbox" id="unit-toggle" /> <!-- Toggle input -->
+          <span class="slider round"></span> <!-- Custom slider -->
         </label>
-        <span class="unit-label">°C</span>
+        <span class="unit-label">°C</span> <!-- Current unit label -->
       </div>
     </div>
 
-    <!-- Right section: Weather data -->
+    <!-- Right side: weather display section (initially hidden) -->
     <div class="weather-data hidden">
-      <div class="current-weather"></div>
+      <div class="current-weather"></div> <!-- Current weather data -->
       <div class="days-forecast">
         <h2>5-Days Forecast</h2>
-        <ul class="weather-cards"></ul>
+        <ul class="weather-cards"></ul> <!-- Cards for each day -->
       </div>
     </div>
   </div>
