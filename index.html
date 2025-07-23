@@ -25,59 +25,72 @@
             <button class="location-btn">Use Current Location</button>
             <!-- button to fetch weather data using the current location -->
         </div>
+
+        <!-- ✅ ADDED TOGGLE START -->
+        <!-- Unit toggle switch -->
+        <div class="unit-toggle">
+            <label class="switch">
+                <input type="checkbox" id="unitToggle">
+                <span class="slider round"></span>
+            </label>
+            <span id="unitLabel">°C</span>
+        </div>
+        <!-- ✅ ADDED TOGGLE END -->
+
         <!-- section to display weather data -->
-            <div class="weather-data">
-        <!-- current weather details container -->
+        <div class="weather-data">
+            <!-- current weather details container -->
             <div class="current-weather">
                 <div class="details">
-        <!-- Placeholder headings for displaying current city, temperature, wind speed, and humidity -->
+                    <!-- Placeholder headings for displaying current city, temperature, wind speed, and humidity -->
                     <h2>_______ ( _______ )</h2>
                     <h4>Temp: ___°𝐂</h4>
                     <h4>Wind: __M/S</h4>
                     <h4>Humidity: __%</h4>
-             </div>
+                </div>
+            </div>
+
+            <!-- section to display a 5-day forecast -->
+            <div class="days-forecast">
+                <h2>5-Days Forecast</h2>
+                <!-- unordered list to hold individual forecast cards for each day -->
+                <ul class="weather-cards">
+                    <!-- each <li> represents a card for a day's forecast -->
+                    <li class="card">
+                        <h3>( _______ )</h3>
+                        <!-- placeholder for date or day -->
+                        <h4>Temp: ___°𝐂</h4>
+                        <h4>Wind: __M/S</h4>
+                        <h4>Humidity: __%</h4>
+                    </li>
+                    <!-- repeat structure for remaining days -->
+                    <li class="card">
+                        <h3>( _______ )</h3>
+                        <h4>Temp: ___°𝐂</h4>
+                        <h4>Wind: __M/S</h4>
+                        <h4>Humidity: __%</h4>
+                    </li>
+                    <li class="card">
+                        <h3>( _______ )</h3>
+                        <h4>Temp: ___°𝐂</h4>
+                        <h4>Wind: __M/S</h4>
+                        <h4>Humidity: __%</h4>
+                    </li>
+                    <li class="card">
+                        <h3>( _______ )</h3>
+                        <h4>Temp: ___°𝐂</h4>
+                        <h4>Wind: __M/S</h4>
+                        <h4>Humidity: __%</h4>
+                    </li>
+                    <li class="card">
+                        <h3>( _______ )</h3>
+                        <h4>Temp: ___°𝐂</h4>
+                        <h4>Wind: __M/S</h4>
+                        <h4>Humidity: __%</h4>
+                    </li>
+                </ul>
+            </div>
         </div>
-        <!-- section to display a 5-day forecast -->
-        <div class="days-forecast">
-            <h2>5-Days Forecast</h2>
-            <!-- unordered list to hold individual forecast cards for each day -->
-            <ul class="weather-cards">
-            <!-- each <li> represents a card for a day's forecast -->
-                <li class="card">
-                <h3>( _______ )</h3>
-                <!-- placeholder for date or day -->
-                <h4>Temp: ___°𝐂</h4>
-                <h4>Wind: __M/S</h4>
-                <h4>Humidity: __%</h4>
-                </li>
-                <!-- repeat structure for remaining days -->
-                <li class="card">
-                <h3>( _______ )</h3>
-                <h4>Temp: ___°𝐂</h4>
-                <h4>Wind: __M/S</h4>
-                <h4>Humidity: __%</h4>
-                </li>
-                <li class="card">
-                <h3>( _______ )</h3>
-                <h4>Temp: ___°𝐂</h4>
-                <h4>Wind: __M/S</h4>
-                <h4>Humidity: __%</h4>
-                </li>
-                <li class="card">
-                <h3>( _______ )</h3>
-                <h4>Temp: ___°𝐂</h4>
-                <h4>Wind: __M/S</h4>
-                <h4>Humidity: __%</h4>
-                </li>
-                <li class="card">
-                <h3>( _______ )</h3>
-                <h4>Temp: ___°𝐂</h4>
-                <h4>Wind: __M/S</h4>
-                <h4>Humidity: __%</h4>
-                </li>
-           </ul>
-    </div>
-</div>
     </div>
 </body>
 </html>
