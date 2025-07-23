@@ -101,3 +101,36 @@ const getUserCoordinates = () => {
 locationButton.addEventListener("click", getUserCoordinates); // Fetch weather based on current location
 searchButton.addEventListener("click", getCityCoordinates); // Fetch weather based on city input
 cityInput.addEventListener("keyup", e => e.key === "Enter" && getCityCoordinates()); // Enter key triggers search
+const toggle = document.getElementById("unitToggle");
+const unitLabel = document.getElementById("unitLabel");
+let isFahrenheit = localStorage.getItem("tempUnit") === "F";
+
+if (isFahrenheit) toggle.checked = true;
+
+toggle.addEventListener("change", () => {
+  isFahrenheit = toggle.checked;
+  localStorage.setItem("tempUnit", isFahrenheit ? "F" : "C");
+  unitLabel.textContent = isFahrenheit ? "°F" : "°C";
+  updateTemperatures();
+});
+
+function updateTemperatures() {
+  document.querySelectorAll("h4").forEach(el => {
+    const match = el.textContent.match(/Temperature: ([\d.]+)°[CF]/);
+    if (match) {
+      let temp = parseFloat(match[1]);
+      if (isFahrenheit) {
+        temp = (temp * 9/5) + 32;
+        el.textContent = `Temperature: ${temp.toFixed(1)}°F`;
+      } else {
+        temp = (temp - 32) * 5/9;
+        el.textContent = `Temperature: ${temp.toFixed(1)}°C`;
+      }
+    }
+  });
+}
+// Call once on load if needed
+if (isFahrenheit) {
+  unitLabel.textContent = "°F";
+  updateTemperatures();
+}
