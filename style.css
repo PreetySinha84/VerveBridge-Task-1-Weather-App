@@ -1,162 +1,287 @@
-/*import google font - Open Sans */
-@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap');
-/* Resetting margin, padding, and setting font for all elements */
-*{
+/* Import Google Font */
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap');
+
+/* Base Reset */
+* {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: "Open Sans", sans-serif;
+    font-family: 'Open Sans', sans-serif;
+    transition: background 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
 }
-/* Styling for the body background image */
-body{
-    background-image:url(sky.jpg); /* Image used for the main background */
-    background-size: cover; /* Ensures image covers the entire screen */
-    background-repeat: no-repeat; /* Prevents image from repeating */
-    background-position: center; /* Centers the image */
-    color: #ffffff; /* Sets default text color */
+
+/* Theme Toggle Button */
+.theme-toggle {
+    position: fixed;
+    top: 15px;
+    right: 15px;
+    z-index: 999;
 }
-h1 {
+.theme-toggle button {
+    background: rgba(0, 0, 0, 0.6);
     color: #fff;
+    font-size: 1.2rem;
+    border: none;
+    padding: 10px 14px;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: background 0.3s ease, transform 0.2s;
+}
+.theme-toggle button:hover {
+    background: rgba(0, 0, 0, 0.8);
+    transform: scale(1.1);
+}
+
+/* General Body Styles */
+body {
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    color: #ffffff;
+}
+
+/* Default to dark mode */
+body.dark {
+    background-image: url('sky.jpg'); /* Dark theme background */
+}
+body.light {
+    background-image: url('light-sky.jpg'); /* Light theme background */
+    color: #1a1a1a;
+}
+
+/* Header */
+h1 {
     padding: 18px 0;
     text-align: center;
-    font-size: 1.75rem;
-    background: #000; /* Background color for the header */
+    font-size: 2rem;
+    font-weight: 700;
+    background: rgba(0, 0, 0, 0.6);
+    color: #fff;
+    text-shadow: 1px 1px 2px #000;
+}
+body.light h1 {
+    background: rgba(255, 255, 255, 0.85);
+    color: #222;
+    text-shadow: none;
+    border-bottom: 1px solid #ddd;
+}
 
+/* Container */
+.container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 35px;
+    padding: 30px;
+    font-size: 1.1rem;
 }
-.container{
-    display: flex; /* Creates a flex container */
-    gap: 35px; /* Adds space between items */
-    padding: 30px; /* Padding around the container */
-    color: #000; /* Text color */
-    font-size: x-large; /* Text size */
+
+/* Weather Input Section */
+.weather-input {
+    width: 50%;
+    max-width: 500px;
 }
-.weather-input{
-    width: 50%; /* Takes half the width of the container */
+.weather-input input {
+    width: 100%;
+    height: 46px;
+    padding: 0 15px;
+    margin: 10px 0 20px 0;
+    font-size: 1rem;
+    border-radius: 6px;
+    border: none;
+    background: rgba(255, 255, 255, 0.8);
+    color: #333;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
 }
-.weather-input input{
-    width: 100%; /* Input field takes full width */
-    height:46px; /* Fixed height for the input */
-    outline: none; /* Removes default input outline */
-    padding: 0 15px; /* Padding inside the input */
-    margin: 10px 0 20px 0; /* Margin above and below */
-    font-size: 1.07rem; /* Sets font size */
-    border-radius: 4px; /* Rounded corners */
-    border: 1px solid ; /* Adds a solid border */
+.weather-input input:focus {
+    border: 2px solid #4c056a;
+    background: #fff;
 }
+
+/* Separator */
 .weather-input .separator {
-    height:1px; /* Sets separator height */
-    width: 100%; /* Full width separator */
-    margin: 25px 0; /* Spacing around separator */
-    background: #D8BFD8; /* Light color for the line */
-    display: flex; /* Flexbox for centering */
-    align-items: center; /* Centers items vertically */
-    justify-content: center; /* Centers items horizontally */
+    height: 1px;
+    width: 100%;
+    margin: 25px 0;
+    background: #D8BFD8;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
 }
-.weather-input .separator::before{
-    content: "or"; /* Displays 'or' text in the separator */
-    color: #fff; /* Text color */
-    font-size: 1.18rem; /* Font size for the text */
-    padding: 0 15px; /* Spacing around text */
-    margin-top: -4px; /* Adjusts position */
-    background: #4c056a; /* Background color for the text */
+.weather-input .separator::before {
+    content: "or";
+    position: absolute;
+    color: #fff;
+    font-size: 1.1rem;
+    padding: 0 15px;
+    background: #4c056a;
+    border-radius: 4px;
 }
+body.light .weather-input .separator {
+    background: #ccc;
+}
+body.light .weather-input .separator::before {
+    background: #ffffff;
+    color: #444;
+    font-weight: 600;
+}
+
+/* Buttons */
 .weather-input button {
-    width: 100%; /* Full-width button */
-    padding: 10px 0; /* Vertical padding */
-    cursor: pointer; /* Changes cursor to pointer on hover */
-    outline: none; /* Removes outline */
-    border: none; /* No border */
-    color: #fff; /* White text */
-    font-size: 1rem; /* Font size */
-    border-radius: 4px; /* Rounded corners */
-    background: #4c056a; /* Background color for the button */
+    width: 100%;
+    padding: 12px 0;
+    cursor: pointer;
+    border: none;
+    color: #fff;
+    font-size: 1rem;
+    font-weight: bold;
+    border-radius: 6px;
+    background: #4c056a;
 }
-.weather-input .location-btn {
-    background: #4c056a; /* Same background as the search button */
-    }
-.weather-data{
-    width: 100%; /* Full width for the weather data section */
+.weather-input button:hover {
+    background: #650786;
 }
+body.light .weather-input button {
+    background: linear-gradient(to right, #4facfe, #00f2fe);
+    color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 123, 255, 0.2);
+}
+body.light .weather-input button:hover {
+    background: linear-gradient(to right, #00c6ff, #0072ff);
+}
+
+/* Weather Data Output */
+.weather-data {
+    flex: 1;
+    min-width: 300px;
+}
+
+/* Current Weather Section */
 .current-weather {
-    color: #fff; /* White text */
-    display: flex; /* Flexbox layout */
-    border-radius: 5px; /* Rounded corners */
-    padding: 20px 70px 20px 20px; /* Padding on all sides */
-    background: #4c056a; /* Background color for weather details */
-    justify-content: space-between; /* Space between items */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 12px;
+    padding: 20px 30px;
+    background: rgba(76, 5, 106, 0.7);
+    color: #fff;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+    backdrop-filter: blur(8px);
 }
 .current-weather h2 {
-    font-size: 1.7rem; /* Heading font size */
+    font-size: 1.75rem;
+    margin-bottom: 8px;
+    text-shadow: 1px 1px 2px #000;
 }
 .weather-data h4 {
-    margin-top: 12px; /* Margin above headings */
-    font-size: 1rem; /* Font size */
-    font-weight: 500; /* Medium font weight */
+    margin-top: 12px;
+    font-size: 1rem;
+    font-weight: 600;
+    text-shadow: 1px 1px 2px #000;
 }
 .current-weather .icon {
-    text-align: center; /* Center text and image */
+    text-align: center;
 }
 .current-weather .icon img {
-    max-width: 120px; /* Max width for weather icons */
-    margin-top: -15px; /* Adjusts image position */
+    max-width: 120px;
+    margin-top: -15px;
 }
 .current-weather .icon h4 {
-    margin-top: -10px; /* Adjusts heading position */
-    text-transform: capitalize; /* Capitalizes text */
+    margin-top: -10px;
+    text-transform: capitalize;
 }
-.days-forecast h2 {
-    font-size: 1.5rem; /* Font size for 5-days forecast heading */
-    margin: 20px 0; /* Margin above and below */
-    color: #000; /* Text color */
-    font-size: xx-large; /* Font size */
+body.light .current-weather {
+    background: rgba(255, 255, 255, 0.95);
+    color: #222;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(4px);
 }
-.weather-cards {
-    display: flex; /* Flexbox for weather cards */
-    gap: 20px; /* Space between cards */
-}
-.weather-cards .card {
-    list-style: none; /* Removes bullet points */
-    color: #fff; /* Text color */
-    padding: 18px 16px; /* Padding inside cards */
-    border-radius: 5px; /* Rounded corners */
-    background: #4c056a; /* Background color for cards */
-    width: calc(100% / 5); /* Responsive width */
-}
-.weather-cards .card img {
-    max-width: 70px; /* Max width for images in cards */
-    margin: 5px 0 -12px 0; /* Adjusts image spacing */
+body.light .current-weather h2,
+body.light .weather-data h4 {
+    color: #333;
+    text-shadow: none;
 }
 
+/* 5-Day Forecast */
+.days-forecast h2 {
+    font-size: 1.8rem;
+    margin: 20px 0;
+    color: #000;
+    font-weight: bold;
+    text-align: center;
+    text-shadow: 1px 1px 1px #fff;
+}
+body.light .days-forecast h2 {
+    color: #222;
+    text-shadow: none;
+}
+
+/* Weather Cards */
+.weather-cards {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+.weather-cards .card {
+    list-style: none;
+    color: #fff;
+    padding: 18px 16px;
+    border-radius: 10px;
+    background: rgba(76, 5, 106, 0.75);
+    backdrop-filter: blur(6px);
+    width: calc(100% / 5 - 10px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.weather-cards .card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 25px rgba(0, 0, 0, 0.3);
+}
+.weather-cards .card img {
+    max-width: 70px;
+    margin: 5px 0 -12px 0;
+}
+body.light .weather-cards .card {
+    background: linear-gradient(to top, #f9f9f9, #ffffff);
+    color: #333;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+}
+body.light .weather-cards .card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.12);
+}
+
+/* Responsive Layout */
 @media (max-width:1400px) {
-    .weather-data .current-weather {
-        padding: 20px; /* Adjust padding for smaller screens */
-    }
-    .weather-cards {
-        flex-wrap: wrap; /* Wraps cards in rows */
+    .current-weather {
+        padding: 20px;
     }
     .weather-cards .card {
-        width: calc(100% / 4 - 15px); /* Adjusts card width */
-}
+        width: calc(100% / 4 - 10px);
+    }
 }
 @media (max-width:1200px) {
     .weather-cards .card {
-        width: calc(100% / 3 - 15px); /* Adjusts card width */
-  }
+        width: calc(100% / 3 - 10px);
+    }
 }
 @media (max-width:950px) {
     .weather-input {
-        width: 450px; /* Sets a fixed width */
+        width: 100%;
+        max-width: 450px;
     }
-.weather-cards .card {
-    width: calc(100% / 2 - 10px); /* Adjusts card width */
-}
+    .weather-cards .card {
+        width: calc(100% / 2 - 10px);
+    }
 }
 @media (max-width:750px) {
     .container {
-        flex-wrap: wrap; /* Wraps container items */
-        padding: 15px; /* Adjust padding */
+        padding: 15px;
     }
     .weather-input {
-        width: 100%; /* Full width input on smaller screens */
+        width: 100%;
+    }
+    .weather-cards .card {
+        width: 100%;
     }
 }
