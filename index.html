@@ -11,6 +11,9 @@
 <body>
     <!-- main heading of the page -->
     <h1>Weather Dashboard</h1>
+    <div class="theme-toggle">
+        <button id="themeSwitcher" title="Toggle theme">🌞</button>
+    </div>
     <!-- main container to hold all the weather input and display components -->
     <div class="container">
         <!-- section for user input to search by city or use current location -->
@@ -79,5 +82,35 @@
     </div>
 </div>
     </div>
+    
+    <script>
+  const switcher = document.getElementById('themeSwitcher');
+  const body = document.body;
+
+  // Detect system preference
+  const userPrefersLight = window.matchMedia('(prefers-color-scheme: light)').matches;
+
+  // Load theme from localStorage or system
+  const savedTheme = localStorage.getItem('theme');
+  if (savedTheme) {
+    body.classList.add(savedTheme);
+  } else {
+    body.classList.add(userPrefersLight ? 'light' : 'dark');
+  }
+
+  // Set initial icon
+  switcher.textContent = body.classList.contains('light') ? '🌙' : '🌞';
+
+  // Toggle handler
+  switcher.addEventListener('click', () => {
+    body.classList.toggle('light');
+    body.classList.toggle('dark');
+
+    const isLight = body.classList.contains('light');
+    localStorage.setItem('theme', isLight ? 'light' : 'dark');
+    switcher.textContent = isLight ? '🌙' : '🌞';
+  });
+</script>
+    
 </body>
 </html>
