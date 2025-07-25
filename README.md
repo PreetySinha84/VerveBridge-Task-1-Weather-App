@@ -7,6 +7,47 @@ A responsive weather dashboard that lets users search for current weather and a 
 - 🕔 5-Day Forecast: Displays upcoming weather including temperature, wind speed, and humidity.
 - 🎨 Responsive Design: Fully responsive layout optimized for desktops and mobile devices.
 
+
+
+🌐 Multilingual Support
+This weather app supports multiple languages to make it more accessible to users worldwide.
+
+✅ Supported Languages:
+English (en)
+
+Hindi (hi)
+
+Spanish (es)
+
+French (fr)
+
+German (de)
+
+Tamil (ta)
+
+📄 How It Works:
+All translatable text and placeholders are marked with data-i18n and data-i18n-placeholder attributes.
+
+Language files are stored in the /locales/ folder in JSON format.
+
+A dropdown (<select>) lets users choose their preferred language.
+
+The language preference is saved using localStorage.
+
+📁 Folder Structure:
+pgsql
+Copy code
+/locales
+  ├── en.json
+  ├── hi.json
+  ├── es.json
+  ├── fr.json
+  ├── de.json
+  └── ta.json
+🚀 Example:
+When a user selects "French", the app loads fr.json and updates all translatable content dynamically using JavaScript.
+
+
 ## 🖼️ Preview
 <img width="1852" height="929" alt="image" src="https://github.com/user-attachments/assets/5f499971-2ed9-4135-95a2-b00f1e44dcd2" />
 

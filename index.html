@@ -1,83 +1,57 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <!--metadata and links for styling and scripts-->
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="script.js" defer></script> <!-- links the JavaScript file, scripts.js,and defer loading until HTML is parsed -->
-    <title>Weather App</title>
-    <link rel="stylesheet" href="style.css"> <!-- links the CSS file, style.css, for styling -->
+  <meta charset="UTF-8" />
+  <title>Weather App</title>
 </head>
 <body>
-    <!-- main heading of the page -->
-    <h1>Weather Dashboard</h1>
-    <!-- main container to hold all the weather input and display components -->
-    <div class="container">
-        <!-- section for user input to search by city or use current location -->
-        <div class="weather-input">
-            <h3>Enter a City Name</h3>
-            <!-- input box for entering the city name -->
-            <input class="city-input" type="text" placeholder="E.g., New York, London,Tokyo">
-            <button class="search-btn">Search</button>
-            <!-- search button to get weather data for the entered city -->
-            <div class="separator"></div>
-            <!-- optional separator for styling or layout -->
-            <button class="location-btn">Use Current Location</button>
-            <!-- button to fetch weather data using the current location -->
-        </div>
-        <!-- section to display weather data -->
-            <div class="weather-data">
-        <!-- current weather details container -->
-            <div class="current-weather">
-                <div class="details">
-        <!-- Placeholder headings for displaying current city, temperature, wind speed, and humidity -->
-                    <h2>_______ ( _______ )</h2>
-                    <h4>Temp: ___°𝐂</h4>
-                    <h4>Wind: __M/S</h4>
-                    <h4>Humidity: __%</h4>
-             </div>
-        </div>
-        <!-- section to display a 5-day forecast -->
-        <div class="days-forecast">
-            <h2>5-Days Forecast</h2>
-            <!-- unordered list to hold individual forecast cards for each day -->
-            <ul class="weather-cards">
-            <!-- each <li> represents a card for a day's forecast -->
-                <li class="card">
-                <h3>( _______ )</h3>
-                <!-- placeholder for date or day -->
-                <h4>Temp: ___°𝐂</h4>
-                <h4>Wind: __M/S</h4>
-                <h4>Humidity: __%</h4>
-                </li>
-                <!-- repeat structure for remaining days -->
-                <li class="card">
-                <h3>( _______ )</h3>
-                <h4>Temp: ___°𝐂</h4>
-                <h4>Wind: __M/S</h4>
-                <h4>Humidity: __%</h4>
-                </li>
-                <li class="card">
-                <h3>( _______ )</h3>
-                <h4>Temp: ___°𝐂</h4>
-                <h4>Wind: __M/S</h4>
-                <h4>Humidity: __%</h4>
-                </li>
-                <li class="card">
-                <h3>( _______ )</h3>
-                <h4>Temp: ___°𝐂</h4>
-                <h4>Wind: __M/S</h4>
-                <h4>Humidity: __%</h4>
-                </li>
-                <li class="card">
-                <h3>( _______ )</h3>
-                <h4>Temp: ___°𝐂</h4>
-                <h4>Wind: __M/S</h4>
-                <h4>Humidity: __%</h4>
-                </li>
-           </ul>
-    </div>
-</div>
-    </div>
+  <select id="language">
+    <option value="en">English</option>
+    <option value="hi">Hindi</option>
+    <option value="es">Spanish</option>
+    <option value="fr">French</option>
+    <option value="de">German</option>
+    <option value="ta">Tamil</option>
+  </select>
+
+  <h1 data-i18n="title">Weather App</h1>
+  <input type="text" placeholder="Search City" data-i18n-placeholder="search_placeholder">
+  <p><span data-i18n="temperature">Temperature</span>: 32°C</p>
+  <p><span data-i18n="humidity">Humidity</span>: 50%</p>
+
+  <script>
+    const languageSelector = document.getElementById("language");
+
+    window.addEventListener("DOMContentLoaded", () => {
+      const savedLang = localStorage.getItem("lang") || "en";
+      languageSelector.value = savedLang;
+      loadLanguage(savedLang);
+    });
+
+    languageSelector.addEventListener("change", (e) => {
+      const selectedLang = e.target.value;
+      localStorage.setItem("lang", selectedLang);
+      loadLanguage(selectedLang);
+    });
+
+    async function loadLanguage(lang) {
+      try {
+        const res = await fetch(`./locales/${lang}.json`);
+        const data = await res.json();
+
+        document.querySelectorAll("[data-i18n]").forEach(el => {
+          const key = el.getAttribute("data-i18n");
+          if (data[key]) el.textContent = data[key];
+        });
+
+        document.querySelectorAll("[data-i18n-placeholder]").forEach(el => {
+          const key = el.getAttribute("data-i18n-placeholder");
+          if (data[key]) el.placeholder = data[key];
+        });
+      } catch (err) {
+        console.error("Language load failed:", err);
+      }
+    }
+  </script>
 </body>
 </html>
