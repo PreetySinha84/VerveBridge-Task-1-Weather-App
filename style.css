@@ -7,21 +7,36 @@
     box-sizing: border-box;
     font-family: "Open Sans", sans-serif;
 }
-/* Styling for the body background image */
+/* Styling for the body background image with improved readability */
 body{
-    background-image:url(sky.jpg); /* Image used for the main background */
+    position: relative; /* Position for pseudo-element overlay */
+    color: #ffffff; /* Sets default text color */
+    min-height: 100vh; /* Ensure full viewport height */
+}
+
+/* Background image with reduced opacity for better text readability */
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url(sky.jpg); /* Image used for the main background */
     background-size: cover; /* Ensures image covers the entire screen */
     background-repeat: no-repeat; /* Prevents image from repeating */
     background-position: center; /* Centers the image */
-    color: #ffffff; /* Sets default text color */
+    opacity: 0.4; /* Reduced opacity for better text readability */
+    z-index: -1; /* Place behind all content */
 }
 h1 {
     color: #fff;
     padding: 18px 0;
     text-align: center;
     font-size: 1.75rem;
-    background: #000; /* Background color for the header */
-
+    font-weight: 700; /* Increased font weight for better visibility */
+    background: #000; /* Solid black background for the header */
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8); /* Text shadow for better readability */
 }
 .container{
     display: flex; /* Creates a flex container */
@@ -29,9 +44,19 @@ h1 {
     padding: 30px; /* Padding around the container */
     color: #000; /* Text color */
     font-size: x-large; /* Text size */
+    position: relative; /* Ensure proper positioning above background */
+    z-index: 1; /* Ensure content appears above background */
 }
 .weather-input{
     width: 50%; /* Takes half the width of the container */
+    position: relative; /* For proper layering */
+}
+
+/* Enhanced styling for better readability */
+.weather-input h3 {
+    font-weight: 700; /* Bold heading for better visibility */
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7); /* Text shadow for contrast */
+    margin-bottom: 15px; /* Added spacing */
 }
 .weather-input input{
     width: 100%; /* Input field takes full width */
@@ -40,8 +65,11 @@ h1 {
     padding: 0 15px; /* Padding inside the input */
     margin: 10px 0 20px 0; /* Margin above and below */
     font-size: 1.07rem; /* Sets font size */
+    font-weight: 500; /* Medium font weight for better readability */
     border-radius: 4px; /* Rounded corners */
-    border: 1px solid ; /* Adds a solid border */
+    border: 2px solid #4c056a; /* Enhanced border for better visibility */
+    background: rgba(255, 255, 255, 0.95); /* Semi-transparent white background */
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
 }
 .weather-input .separator {
     height:1px; /* Sets separator height */
@@ -62,14 +90,23 @@ h1 {
 }
 .weather-input button {
     width: 100%; /* Full-width button */
-    padding: 10px 0; /* Vertical padding */
+    padding: 12px 0; /* Increased vertical padding */
     cursor: pointer; /* Changes cursor to pointer on hover */
     outline: none; /* Removes outline */
     border: none; /* No border */
     color: #fff; /* White text */
     font-size: 1rem; /* Font size */
+    font-weight: 600; /* Bold text for better visibility */
     border-radius: 4px; /* Rounded corners */
     background: #4c056a; /* Background color for the button */
+    box-shadow: 0 4px 12px rgba(76, 5, 106, 0.4); /* Enhanced shadow for depth */
+    transition: all 0.3s ease; /* Smooth transitions */
+}
+
+.weather-input button:hover {
+    background: #5a0675; /* Slightly lighter on hover */
+    transform: translateY(-2px); /* Lift effect on hover */
+    box-shadow: 0 6px 16px rgba(76, 5, 106, 0.6); /* Enhanced shadow on hover */
 }
 .weather-input .location-btn {
     background: #4c056a; /* Same background as the search button */
@@ -82,16 +119,22 @@ h1 {
     display: flex; /* Flexbox layout */
     border-radius: 5px; /* Rounded corners */
     padding: 20px 70px 20px 20px; /* Padding on all sides */
-    background: #4c056a; /* Background color for weather details */
+    background: rgba(76, 5, 106, 0.95); /* Semi-transparent background for better contrast */
+    backdrop-filter: blur(10px); /* Backdrop blur for modern glass effect */
     justify-content: space-between; /* Space between items */
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3); /* Enhanced shadow for depth */
+    border: 1px solid rgba(255, 255, 255, 0.1); /* Subtle border for definition */
 }
 .current-weather h2 {
     font-size: 1.7rem; /* Heading font size */
+    font-weight: 700; /* Bold for better visibility */
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5); /* Text shadow for contrast */
 }
 .weather-data h4 {
     margin-top: 12px; /* Margin above headings */
     font-size: 1rem; /* Font size */
-    font-weight: 500; /* Medium font weight */
+    font-weight: 600; /* Increased font weight for better visibility */
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5); /* Text shadow for contrast */
 }
 .current-weather .icon {
     text-align: center; /* Center text and image */
@@ -109,6 +152,8 @@ h1 {
     margin: 20px 0; /* Margin above and below */
     color: #000; /* Text color */
     font-size: xx-large; /* Font size */
+    font-weight: 800; /* Extra bold for better visibility */
+    text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.8); /* White text shadow for contrast against background */
 }
 .weather-cards {
     display: flex; /* Flexbox for weather cards */
@@ -119,8 +164,23 @@ h1 {
     color: #fff; /* Text color */
     padding: 18px 16px; /* Padding inside cards */
     border-radius: 5px; /* Rounded corners */
-    background: #4c056a; /* Background color for cards */
+    background: rgba(76, 5, 106, 0.95); /* Semi-transparent background for consistency */
+    backdrop-filter: blur(10px); /* Backdrop blur effect */
     width: calc(100% / 5); /* Responsive width */
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25); /* Enhanced shadow */
+    border: 1px solid rgba(255, 255, 255, 0.1); /* Subtle border */
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Smooth transitions */
+}
+
+.weather-cards .card:hover {
+    transform: translateY(-4px); /* Lift effect on hover */
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.35); /* Enhanced shadow on hover */
+}
+
+.weather-cards .card h3,
+.weather-cards .card h4 {
+    font-weight: 600; /* Bold text for better visibility */
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5); /* Text shadow for contrast */
 }
 .weather-cards .card img {
     max-width: 70px; /* Max width for images in cards */
