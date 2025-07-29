@@ -9,6 +9,10 @@ const API_KEY = "92d96435984d109b204dfce4606d8f45"; // OpenWeatherMap API key fo
 // Function to create HTML for displaying weather details for the current day and forecast cards 
 
 const  createWeatherCard = (cityName, weatherItem, index) => {
+    const date = new Date(weatherItem.dt_txt);
+const dayName = date.toLocaleDateString("en-US", { weekday: "long" });
+
+
     if(index === 0){  // If it's the first item (current day weather)
          return `<div class="details">
                     <h2>${cityName} (${weatherItem.dt_txt.split(" ")[0]})</h2> 
@@ -23,6 +27,7 @@ const  createWeatherCard = (cityName, weatherItem, index) => {
     } else { // For other days (forecast cards)
     return `<li class="card">
                 <h3>(${weatherItem.dt_txt.split(" ")[0]})</h3>
+                <h3>${dayName}</h3>
                 <img src="https://openweathermap.org/img/wn/${weatherItem.weather[0].icon}@2x.png" alt="weather-icon">
                 <h4>Temp: ${(weatherItem.main.temp - 273.15).toFixed(2)}°𝐂</h4>
                 <h4>Wind: ${weatherItem.wind.speed} M/S</h4>
@@ -35,6 +40,7 @@ const getWeatherDetails = (cityName, lat, lon) => {
     const WEATHER_API_URL = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${API_KEY}`;
 
     fetch( WEATHER_API_URL).then(res => res.json()).then(data => {
+        hideLoading(); // Hide loading spinner after data is fetched
         const uniqueForecastDays = []; // Array to keep track of unique forecast dates
         const fiveDaysForecast = data.list.filter(forecast => {
             const forecastDate = new Date(forecast.dt_txt).getDate(); // Extracts the date from the forecast timestamp
@@ -65,6 +71,9 @@ const getWeatherDetails = (cityName, lat, lon) => {
 const getCityCoordinates = () => {
        const cityName = cityInput.value.trim(); // Gets the city name from the input field and trims any whitespace
        if(!cityName) return; // If the input is empty, exit the function
+       
+       showLoading(); // Show loading spinner while fetching data
+       
        const GEOCODING_API_URL = `http://api.openweathermap.org/geo/1.0/direct?q=${cityName}&limit=1&appid=${API_KEY}`;
 
        fetch(GEOCODING_API_URL).then(res => res.json()).then(data => {
@@ -79,6 +88,7 @@ const getCityCoordinates = () => {
 // Function to get the user's current location coordinates using the browser's geolocation API
 
 const getUserCoordinates = () => {
+    showLoading(); // Show loading spinner while fetching data
     navigator.geolocation.getCurrentPosition(
         position => { // If the user allows geolocation access
             const { latitude, longitude} = position.coords; // Destructures the latitude and longitude
@@ -97,6 +107,19 @@ const getUserCoordinates = () => {
         }
     );
 }
+
+
+// Show loading spinner when fetching data
+const loadingDiv = document.getElementById("loading");
+
+function showLoading() {
+    loadingDiv.style.display = "block";
+}
+
+function hideLoading() {
+    loadingDiv.style.display = "none";
+}
+
 // Event listeners for button clicks and "Enter" key press
 locationButton.addEventListener("click", getUserCoordinates); // Fetch weather based on current location
 searchButton.addEventListener("click", getCityCoordinates); // Fetch weather based on city input
