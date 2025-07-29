@@ -160,3 +160,23 @@ h1 {
         width: 100%; /* Full width input on smaller screens */
     }
 }
+
+
+/* loading spinner styles */
+#loading {
+  text-align: center;
+  font-weight: bold;
+  font-size: 1.2rem;
+  color: #2c3e50;
+  margin: 10px auto;
+}
+
+@keyframes blink {
+  0% { opacity: 0.2; }
+  50% { opacity: 1; }
+  100% { opacity: 0.2; }
+}
+
+#loading p {
+  animation: blink 1.5s infinite;
+}
