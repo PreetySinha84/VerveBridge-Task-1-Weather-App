@@ -63,18 +63,29 @@ const getWeatherDetails = (cityName, lat, lon) => {
 // Function to get the latitude and longitude of a given city
 
 const getCityCoordinates = () => {
-       const cityName = cityInput.value.trim(); // Gets the city name from the input field and trims any whitespace
-       if(!cityName) return; // If the input is empty, exit the function
-       const GEOCODING_API_URL = `http://api.openweathermap.org/geo/1.0/direct?q=${cityName}&limit=1&appid=${API_KEY}`;
+    const cityName = cityInput.value.trim();
+    // Basic input validation 
+    const validCityPattern = /^[a-zA-Z\s\-]{2,}$/; // allows letters, spaces, hyphens
+    if (!cityName) {
+        alert("Please enter a city name.");
+        return;
+    }
+    if (!validCityPattern.test(cityName)) {
+        alert("Please enter a valid city name (letters only).");
+        return;
+    }
+    const GEOCODING_API_URL = `http://api.openweathermap.org/geo/1.0/direct?q=${cityName}&limit=1&appid=${API_KEY}`;
+    fetch(GEOCODING_API_URL)
+        .then(res => res.json())
+        .then(data => {
+            if (!data.length) return alert(`⚠️ No coordinates found for "${cityName}"`);
+            const { name, lat, lon } = data[0];
+            getWeatherDetails(name, lat, lon);
+        }).catch(() => {
+            alert("An error occurred while fetching the coordinates!");
+        });
+};
 
-       fetch(GEOCODING_API_URL).then(res => res.json()).then(data => {
-        if(!data.length) return alert(`No coordinates found for ${cityName}`); // If no coordinates are found, show an alert
-        const { name, lat, lon } = data[0]; // Destructures the first result from the data
-        getWeatherDetails(name, lat, lon); // Calls the function to get weather details using coordinates
-}).catch(() => {
-    alert("An error occurred while fetching the coordinates!"); // Error handling for failed API request
-});
-}
 
 // Function to get the user's current location coordinates using the browser's geolocation API
 
