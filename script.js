@@ -113,10 +113,10 @@ const getWeatherDetails = (cityName, lat, lon) => {
                     weatherCardsDiv.insertAdjacentHTML("beforeend", createWeatherCard(cityName, weatherItem, index));
                 }
             });
+            
             document.body.style.height = '203svh';
             document.querySelector('.weather-data').style.display = 'block';
             
-
             showError(`Weather data loaded successfully for ${cityName}!`, true);
         })
         .catch((error) => {
