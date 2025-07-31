@@ -24,6 +24,7 @@ h1 {
     background: rgba(255, 255, 255, 0.6); /* Background color for the header */
 
 }
+
 .container{
     display: flex; /* Creates a flex container */
     gap: 35px; /* Adds space between items */
