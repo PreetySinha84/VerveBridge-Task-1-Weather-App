@@ -70,10 +70,154 @@ h1 {
     font-size: 1rem; /* Font size */
     border-radius: 4px; /* Rounded corners */
     background: #4c056a; /* Background color for the button */
+    position: relative; /* For positioning loading spinner */
+    transition: background-color 0.3s ease, transform 0.2s ease; /* Smooth transitions */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.weather-input button:hover {
+    background: #5c0a7a; /* Darker shade on hover */
+    transform: translateY(-2px); /* Subtle lift effect */
+}
+
+.weather-input button:disabled {
+    background: #888; /* Gray background when disabled */
+    cursor: not-allowed;
+    transform: none;
+}
+
+/* Loading spinner styles */
+.loading-spinner {
+    width: 20px;
+    height: 20px;
+    border: 2px solid #ffffff;
+    border-top: 2px solid transparent;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin-left: 10px;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Error message styles */
+.error-message {
+    background: #ff4757;
+    color: white;
+    padding: 12px;
+    border-radius: 4px;
+    margin-top: 15px;
+    font-size: 0.9rem;
+    border-left: 4px solid #ff3838;
+    box-shadow: 0 2px 5px rgba(255, 71, 87, 0.2);
+}
+
+.error-message.success {
+    background: #2ed573;
+    border-left-color: #1dd1a1;
+    box-shadow: 0 2px 5px rgba(46, 213, 115, 0.2);
+}
+
+/* Temperature unit toggle */
+.unit-toggle {
+    display: flex;
+    align-items: center;
+    margin-top: 20px;
+    justify-content: center;
+}
+
+.toggle-switch {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 30px;
+    margin-right: 10px;
+}
+
+.toggle-switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #4c056a;
+    transition: 0.4s;
+    border-radius: 30px;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 22px;
+    width: 22px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    transition: 0.4s;
+    border-radius: 50%;
+}
+
+input:checked + .slider {
+    background-color: #2196F3;
+}
+
+input:checked + .slider:before {
+    transform: translateX(30px);
+}
+
+.unit-labels {
+    color: #fff;
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+/* Weather card enhancements */
+.weather-cards .card {
+    list-style: none; /* Removes bullet points */
+    color: #fff; /* Text color */
+    padding: 18px 16px; /* Padding inside cards */
+    border-radius: 8px; /* More rounded corners */
+    background: linear-gradient(135deg, #4c056a, #6c1a7a); /* Gradient background */
+    width: calc(100% / 5); /* Responsive width */
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Smooth animations */
+    cursor: pointer;
+    box-shadow: 0 4px 8px rgba(76, 5, 106, 0.3);
+}
+
+.weather-cards .card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(76, 5, 106, 0.4);
+}
+
+.current-weather {
+    color: #fff; /* White text */
+    display: flex; /* Flexbox layout */
+    border-radius: 8px; /* More rounded corners */
+    padding: 20px 70px 20px 20px; /* Padding on all sides */
+    background: linear-gradient(135deg, #4c056a, #6c1a7a); /* Gradient background */
+    justify-content: space-between; /* Space between items */
+    box-shadow: 0 4px 12px rgba(76, 5, 106, 0.3);
+    animation: fadeIn 0.5s ease-in;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
 }
 .weather-input .location-btn {
     background: #4c056a; /* Same background as the search button */
-    }
+}
 .weather-data{
     width: 100%; /* Full width for the weather data section */
 }
@@ -118,9 +262,17 @@ h1 {
     list-style: none; /* Removes bullet points */
     color: #fff; /* Text color */
     padding: 18px 16px; /* Padding inside cards */
-    border-radius: 5px; /* Rounded corners */
-    background: #4c056a; /* Background color for cards */
+    border-radius: 8px; /* More rounded corners */
+    background: linear-gradient(135deg, #4c056a, #6c1a7a); /* Gradient background */
     width: calc(100% / 5); /* Responsive width */
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Smooth animations */
+    cursor: pointer;
+    box-shadow: 0 4px 8px rgba(76, 5, 106, 0.3);
+}
+
+.weather-cards .card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(76, 5, 106, 0.4);
 }
 .weather-cards .card img {
     max-width: 70px; /* Max width for images in cards */
@@ -158,5 +310,18 @@ h1 {
     }
     .weather-input {
         width: 100%; /* Full width input on smaller screens */
+    }
+    
+    .unit-toggle {
+        margin-top: 15px;
+    }
+    
+    .weather-cards .card {
+        width: 100%; /* Full width cards on mobile */
+        margin-bottom: 10px;
+    }
+    
+    .weather-cards {
+        flex-direction: column; /* Stack cards vertically */
     }
 }
