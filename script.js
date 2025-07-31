@@ -21,7 +21,7 @@ const  createWeatherCard = (cityName, weatherItem, index) => {
                     <h4>${weatherItem.weather[0].description}</h4>
                 </div>`;
     } else { // For other days (forecast cards)
-    return `<li class="card">
+    return `<li class="card" data-temp="${(weatherItem.main.temp - 273.15).toFixed(2)}" data-weather="${weatherItem.weather[0].main}">
                 <h3>(${weatherItem.dt_txt.split(" ")[0]})</h3>
                 <img src="https://openweathermap.org/img/wn/${weatherItem.weather[0].icon}@2x.png" alt="weather-icon">
                 <h4>Temp: ${(weatherItem.main.temp - 273.15).toFixed(2)}°𝐂</h4>
@@ -52,10 +52,18 @@ const getWeatherDetails = (cityName, lat, lon) => {
             fiveDaysForecast.forEach((weatherItem, index) => {
             if(index === 0) { // First item is the current weather
                 currentWeatherDiv.insertAdjacentHTML("beforeend", createWeatherCard(cityName, weatherItem, index));
+                setBackground(weatherItem.main.temp - 273.15, weatherItem.weather[0].main);
             } else { // Other items are forecast cards
                 weatherCardsDiv.insertAdjacentHTML("beforeend", createWeatherCard(cityName, weatherItem, index));
             }
        });
+        document.querySelectorAll(".weather-cards .card").forEach(card => {
+            card.addEventListener("click", () => {
+                const temp = parseFloat(card.dataset.temp);
+                const weatherMain = card.dataset.weather;
+                setBackground(temp, weatherMain);
+            });
+        });
 }).catch(() => {
             alert("An error occurred while fetching the weather forecast!"); // Error handling for failed API request
         });
@@ -101,3 +109,23 @@ const getUserCoordinates = () => {
 locationButton.addEventListener("click", getUserCoordinates); // Fetch weather based on current location
 searchButton.addEventListener("click", getCityCoordinates); // Fetch weather based on city input
 cityInput.addEventListener("keyup", e => e.key === "Enter" && getCityCoordinates()); // Enter key triggers search
+
+function setBackground(tempCelsius, weatherMain) {
+    const body = document.body;
+    let background = "";
+
+    if (weatherMain.toLowerCase().includes("rain")) {
+        background = "url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSMShOhjWg0SZU8LWcoodgtj9BS4Oqu3xtBSg&s')";
+    } else if (tempCelsius >= 30) {
+        background = "url('https://media.istockphoto.com/id/485615032/photo/golden-larch-trees.jpg?s=612x612&w=0&k=20&c=Y1lxAYXh90MAhS8GFhiSFU9dHNhnX3HYg3LyP7DgD4w=')";
+    } else if (tempCelsius >= 15) {
+        background = "url('https://s7d2.scene7.com/is/image/TWCNews/12-11-2019_Orlando_Weather_Early_Wednesday')";
+    } else {
+        background = "url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTFcndXrAb-DT0cuYNNjJZqbkk0nKCKhaQGiA&s')";
+    }
+
+    body.style.backgroundImage = background;
+    body.style.backgroundSize = "cover";
+    body.style.backgroundPosition = "center";
+}
+// Function to create HTML for displaying weather details for the current day and forecast cards
