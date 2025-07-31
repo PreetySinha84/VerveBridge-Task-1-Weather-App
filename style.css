@@ -9,26 +9,31 @@
 }
 /* Styling for the body background image */
 body{
-    background-image:url(sky.jpg); /* Image used for the main background */
+    background-image:url(https://images.unsplash.com/photo-1599209248411-5124adbb1da2?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D); /* Image used for the main background */
     background-size: cover; /* Ensures image covers the entire screen */
     background-repeat: no-repeat; /* Prevents image from repeating */
     background-position: center; /* Centers the image */
     color: #ffffff; /* Sets default text color */
+    height: 100svh;
 }
 h1 {
-    color: #fff;
+    color: #121212;
     padding: 18px 0;
     text-align: center;
     font-size: 1.75rem;
-    background: #000; /* Background color for the header */
+    background: rgba(255, 255, 255, 0.6); /* Background color for the header */
 
 }
+
 .container{
     display: flex; /* Creates a flex container */
     gap: 35px; /* Adds space between items */
     padding: 30px; /* Padding around the container */
     color: #000; /* Text color */
     font-size: x-large; /* Text size */
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
 .weather-input{
     width: 50%; /* Takes half the width of the container */
@@ -54,11 +59,13 @@ h1 {
 }
 .weather-input .separator::before{
     content: "or"; /* Displays 'or' text in the separator */
-    color: #fff; /* Text color */
+    color: #121212; /* Text color */
     font-size: 1.18rem; /* Font size for the text */
     padding: 0 15px; /* Spacing around text */
     margin-top: -4px; /* Adjusts position */
-    background: #4c056a; /* Background color for the text */
+    background: #2196F3; /* Background color for the text */
+    border-radius: 5px;
+    font-weight: 500;
 }
 .weather-input button {
     width: 100%; /* Full-width button */
@@ -66,19 +73,20 @@ h1 {
     cursor: pointer; /* Changes cursor to pointer on hover */
     outline: none; /* Removes outline */
     border: none; /* No border */
-    color: #fff; /* White text */
+    color: #121212; /* White text */
     font-size: 1rem; /* Font size */
     border-radius: 4px; /* Rounded corners */
-    background: #4c056a; /* Background color for the button */
+    background: #2196F3; /* Background color for the button */
     position: relative; /* For positioning loading spinner */
     transition: background-color 0.3s ease, transform 0.2s ease; /* Smooth transitions */
     display: flex;
     align-items: center;
     justify-content: center;
+    font-weight: 600;
 }
 
 .weather-input button:hover {
-    background: #5c0a7a; /* Darker shade on hover */
+    background: #038dfe; /* Darker shade on hover */
     transform: translateY(-2px); /* Subtle lift effect */
 }
 
@@ -151,7 +159,7 @@ h1 {
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: #4c056a;
+    background-color: #038dfe;
     transition: 0.4s;
     border-radius: 30px;
 }
@@ -177,9 +185,9 @@ input:checked + .slider:before {
 }
 
 .unit-labels {
-    color: #fff;
+    color: #121212;
     font-size: 0.9rem;
-    font-weight: 500;
+    font-weight: 600;
 }
 
 /* Weather card enhancements */
@@ -216,17 +224,19 @@ input:checked + .slider:before {
     to { opacity: 1; transform: translateY(0); }
 }
 .weather-input .location-btn {
-    background: #4c056a; /* Same background as the search button */
+    background: #2196F3; /* Same background as the search button */
 }
 .weather-data{
-    width: 100%; /* Full width for the weather data section */
+    width: 100%;
+    height: 100%;
+    display: none; /* Full width for the weather data section */
 }
 .current-weather {
-    color: #fff; /* White text */
+    color: #121212; /* White text */
     display: flex; /* Flexbox layout */
     border-radius: 5px; /* Rounded corners */
     padding: 20px 70px 20px 20px; /* Padding on all sides */
-    background: #4c056a; /* Background color for weather details */
+    background: rgba(255, 255, 255, 0.4); /* Background color for weather details */
     justify-content: space-between; /* Space between items */
 }
 .current-weather h2 {
@@ -260,10 +270,10 @@ input:checked + .slider:before {
 }
 .weather-cards .card {
     list-style: none; /* Removes bullet points */
-    color: #fff; /* Text color */
+    color: #121212; /* Text color */
     padding: 18px 16px; /* Padding inside cards */
     border-radius: 8px; /* More rounded corners */
-    background: linear-gradient(135deg, #4c056a, #6c1a7a); /* Gradient background */
+    background: rgba(255, 255, 255, 0.4); /* Gradient background */
     width: calc(100% / 5); /* Responsive width */
     transition: transform 0.3s ease, box-shadow 0.3s ease; /* Smooth animations */
     cursor: pointer;
