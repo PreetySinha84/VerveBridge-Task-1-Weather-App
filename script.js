@@ -7,7 +7,7 @@ const errorMessageDiv = document.querySelector(".error-message");
 const unitToggle = document.querySelector("#unit-toggle");
 
 const API_KEY = "15f12d856d7592b2e14dcda4352446ec";
-
+//const API_KEY = "5800c67c4eff6ad74d9cbc051dd37929";
 let isCelsius = true;
 let currentWeatherData = null;
 
@@ -93,6 +93,7 @@ const getWeatherDetails = (cityName, lat, lon) => {
             return res.json();
         })
         .then(data => {
+            console.log("Weather API response:", data); 
             const uniqueForecastDays = [];
             const fiveDaysForecast = data.list.filter(forecast => {
                 const forecastDate = new Date(forecast.dt_txt).getDate();
@@ -113,6 +114,18 @@ const getWeatherDetails = (cityName, lat, lon) => {
                     weatherCardsDiv.insertAdjacentHTML("beforeend", createWeatherCard(cityName, weatherItem, index));
                 }
             });
+            // ❄️ Trigger snow effect if today's condition is snow
+            const mainCondition = fiveDaysForecast[0].weather[0].main;
+            if (mainCondition && mainCondition.toLowerCase().includes("snow")) {
+                createSnowflakes();
+            } else {
+                clearSnowflakes();
+            }
+            document.body.classList.remove("sunny-bg"); // reset first
+            if (mainCondition && mainCondition.toLowerCase() === "clear") {
+                document.body.classList.add("sunny-bg");
+            }
+
 
             showError(`Weather data loaded successfully for ${cityName}!`, true);
         })
@@ -120,6 +133,7 @@ const getWeatherDetails = (cityName, lat, lon) => {
             console.error('Weather API Error:', error);
             showError("Failed to fetch weather data. Please check your internet or API key.");
         });
+
 };
 
 // Get coordinates from city name
@@ -137,6 +151,7 @@ const getCityCoordinates = () => {
             return res.json();
         })
         .then(data => {
+            console.log("Geocoding API response:", data);  
             showLoading(searchButton, false);
 
             if (!data.length || !data[0].name) {
@@ -260,4 +275,44 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
     console.log('Weather App initialized successfully!');
+});
+
+//snow toggle
+// ❄️ Snow Effect
+function createSnowflakes() {
+    clearSnowflakes(); // remove old flakes first
+    const snowContainer = document.querySelector('.snow');
+    if (!snowContainer) return;
+
+    for (let i = 0; i < 30; i++) {
+        const snowflake = document.createElement('div');
+        snowflake.classList.add('snowflake');
+        snowflake.textContent = '❄';
+
+        // random horizontal position
+        snowflake.style.left = Math.random() * 100 + 'vw';
+        // random size
+        snowflake.style.fontSize = (Math.random() * 10 + 10) + 'px';
+        // random fall duration
+        snowflake.style.animationDuration = (Math.random() * 3 + 2) + 's';
+        // random delay so they don’t fall together
+        snowflake.style.animationDelay = Math.random() * 5 + 's';
+
+        snowContainer.appendChild(snowflake);
+    }
+}
+
+function clearSnowflakes() {
+    const snowContainer = document.querySelector('.snow');
+    if (snowContainer) snowContainer.innerHTML = '';
+}
+// Manual Snow Toggle
+const snowToggle = document.querySelector("#snow-toggle");
+
+snowToggle.addEventListener("change", () => {
+    if (snowToggle.checked) {
+        createSnowflakes();
+    } else {
+        clearSnowflakes();
+    }
 });
