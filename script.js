@@ -7,7 +7,7 @@ const errorMessageDiv = document.querySelector(".error-message");
 const unitToggle = document.querySelector("#unit-toggle");
 
 const API_KEY = "15f12d856d7592b2e14dcda4352446ec";
-
+//const API_KEY = "5800c67c4eff6ad74d9cbc051dd37929";
 let isCelsius = true;
 let currentWeatherData = null;
 
@@ -121,6 +121,10 @@ const getWeatherDetails = (cityName, lat, lon) => {
             } else {
                 clearSnowflakes();
             }
+            document.body.classList.remove("sunny-bg"); // reset first
+            if (mainCondition && mainCondition.toLowerCase() === "clear") {
+                document.body.classList.add("sunny-bg");
+            }
 
 
             showError(`Weather data loaded successfully for ${cityName}!`, true);
@@ -129,6 +133,7 @@ const getWeatherDetails = (cityName, lat, lon) => {
             console.error('Weather API Error:', error);
             showError("Failed to fetch weather data. Please check your internet or API key.");
         });
+
 };
 
 // Get coordinates from city name

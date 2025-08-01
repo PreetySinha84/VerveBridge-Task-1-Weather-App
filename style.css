@@ -15,6 +15,9 @@ body{
     background-position: center; /* Centers the image */
     color: #ffffff; /* Sets default text color */
 }
+body.sunny-bg {
+    background-image: url(sunny.jpg);
+}
 h1 {
     color: #fff;
     padding: 18px 0;
