@@ -129,6 +129,19 @@ h1 {
     margin-top: 20px;
     justify-content: center;
 }
+.unit-toggles {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+    gap: 25px;
+}
+@media (max-width: 750px){
+    .unit-toggles{
+        flex-direction: column;
+        align-items: center;
+        gap: 15px;
+    }
+}
 
 .toggle-switch {
     position: relative;
@@ -324,4 +337,37 @@ input:checked + .slider:before {
     .weather-cards {
         flex-direction: column; /* Stack cards vertically */
     }
+}
+
+.snow{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    overflow: hidden;
+    z-index: 9999;
+}
+.snowflake{
+    position: absolute;
+    top: -10px;
+    color: white;
+    font-size: 1em;
+    opacity: 0.8;
+    animation: fall linear infinite;
+    opacity: 0.8;
+}
+@keyframes fall{
+    to{
+        transform: translateY(100vh);
+    }
+}
+.snow-toggle {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    margin-top: 10px;
+    font-size: 14px;
+    cursor: pointer;
 }

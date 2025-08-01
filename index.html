@@ -35,6 +35,7 @@
             <div class="error-message" style="display: none;"></div>
             
             <!-- Temperature unit toggle -->
+            <div class="unit-toggles">
             <div class="unit-toggle">
                 <label class="toggle-switch">
                     <input type="checkbox" id="unit-toggle" aria-label="Toggle temperature unit">
@@ -42,7 +43,18 @@
                 </label>
                 <span class="unit-labels">°C / °F</span>
             </div>
+            <div class="unit-toggle">
+                <label class="toggle-switch">
+                    <input type="checkbox" id="snow-toggle" aria-labe="Toggle snow effect">
+                    <span class="slider"></span>
+                </label>
+                <span class="unit-labels">❄ Snow Effect</span>
+            </div>
+            
+
+            </div>
         </div>
+        
         <!-- section to display weather data -->
             <div class="weather-data">
         <!-- current weather details container -->
@@ -97,5 +109,10 @@
     </div>
 </div>
     </div>
+    <!-- snow toggle-->
+      
+    <div class = "snow"></div>
+   
+
 </body>
 </html>
