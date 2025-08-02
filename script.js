@@ -6,7 +6,7 @@ const weatherCardsDiv = document.querySelector(".weather-cards");
 const errorMessageDiv = document.querySelector(".error-message");
 const unitToggle = document.querySelector("#unit-toggle");
 
-const API_KEY = "15f12d856d7592b2e14dcda4352446ec";
+const API_KEY = "b8a7c62930d84340820f1e40d201f0b5";
 
 let isCelsius = true;
 let currentWeatherData = null;
