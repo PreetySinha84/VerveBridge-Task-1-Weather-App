@@ -115,6 +115,14 @@ const getWeatherDetails = (cityName, lat, lon) => {
             });
 
             showError(`Weather data loaded successfully for ${cityName}!`, true);
+            // ✅ Change background for snow
+            const mainWeather = fiveDaysForecast[0].weather[0].main.toLowerCase();
+            if (mainWeather.includes("snow")) {
+                document.body.classList.add("snowy");
+            } else {
+                document.body.classList.remove("snowy");
+            }
+
         })
         .catch((error) => {
             console.error('Weather API Error:', error);
