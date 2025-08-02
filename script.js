@@ -58,8 +58,19 @@ const createWeatherCard = (cityName, weatherItem, index) => {
     const safeCityName = cityName && cityName.trim() !== "" ? cityName : "Unknown Location";
     const temperature = convertTemperature(weatherItem.main.temp);
     const feelsLike = convertTemperature(weatherItem.main.feels_like);
+    const weatherDescription = weatherItem.weather[0].description;
+    const bg=document.querySelector("#weather-bg");
 
+    let arr=[];
+        arr.push(weatherItem.weather[0].main);
+        console.log(arr[0]);
+    
     if (index === 0) {
+        if(arr[0]==="Rain"){
+            document.body.style.backgroundImage="none";
+            bg.style.backgroundImage="url('rain.gif')";
+            console.log("bg changed");
+        }
         return `<div class="details">
                     <h2>${safeCityName} (${weatherItem.dt_txt.split(" ")[0]})</h2> 
                     <h4>Temperature: ${temperature}</h4>
@@ -70,7 +81,7 @@ const createWeatherCard = (cityName, weatherItem, index) => {
                 </div>
                 <div class="icon">
                     <img src="https://openweathermap.org/img/wn/${weatherItem.weather[0].icon}@4x.png" alt="weather-icon" loading="lazy">
-                    <h4>${weatherItem.weather[0].description}</h4>
+                    <h4>${weatherDescription}</h4>
                 </div>`;
     } else {
         return `<li class="card">
@@ -81,6 +92,7 @@ const createWeatherCard = (cityName, weatherItem, index) => {
                     <h4>Humidity: ${weatherItem.main.humidity}%</h4>
                 </li>`;
     }
+
 };
 
 // Fetch weather data
