@@ -261,3 +261,25 @@ document.addEventListener('DOMContentLoaded', () => {
     });
     console.log('Weather App initialized successfully!');
 });
+document.addEventListener("DOMContentLoaded", () => {
+    const searchBtn = document.querySelector(".search-btn");
+    const cityInput = document.querySelector(".city-input");
+    const errorMessage = document.querySelector(".error-message");
+
+    searchBtn.addEventListener("click", () => {
+        const city = cityInput.value.trim();
+
+        // Reset alert state
+        errorMessage.style.display = "none";
+        errorMessage.textContent = "";
+
+        if (city === "") {
+            errorMessage.textContent = "⚠️ Please enter a city name before searching.";
+            errorMessage.style.display = "block";
+            return;
+        }
+
+        // Continue to fetch weather data
+        fetchWeatherData(city); // your API call
+    });
+});
