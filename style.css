@@ -14,6 +14,14 @@ body{
     background-repeat: no-repeat; /* Prevents image from repeating */
     background-position: center; /* Centers the image */
     color: #ffffff; /* Sets default text color */
+    transition: background-image 0.5s ease-in-out;
+}
+
+body.snowy {
+    background-image: url(snowy_weather.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
 }
 h1 {
     color: #fff;
