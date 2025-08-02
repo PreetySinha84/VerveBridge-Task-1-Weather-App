@@ -325,3 +325,21 @@ input:checked + .slider:before {
         flex-direction: column; /* Stack cards vertically */
     }
 }
+.error-message {
+    color: red;
+    font-size: 14px;
+    margin-top: 10px;
+}
+
+.error-message {
+    display: none;
+    background-color: #ffe0e0;  /* soft red background */
+    color: #a94442;             /* dark red text */
+    border: 1px solid #f5c6cb;
+    padding: 8px 12px;
+    margin: 8px 0;
+    border-radius: 5px;
+    font-size: 14px;
+    font-weight: 500;
+}
+
