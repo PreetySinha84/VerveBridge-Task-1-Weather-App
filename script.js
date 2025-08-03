@@ -10,7 +10,7 @@ const API_KEY = "15f12d856d7592b2e14dcda4352446ec";
 
 let isCelsius = true;
 let currentWeatherData = null;
-
+let lastLocation =null;
 // Show error/success messages
 const showError = (message, isSuccess = false) => {
     errorMessageDiv.textContent = message;
@@ -169,8 +169,17 @@ const getUserCoordinates = () => {
     navigator.geolocation.getCurrentPosition(
         position => {
             const { latitude, longitude } = position.coords;
-            const REVERSE_GEOCODING_URL = `https://api.openweathermap.org/geo/1.0/reverse?lat=${latitude}&lon=${longitude}&limit=1&appid=${API_KEY}`;
 
+    // ✅ Skip reverse geocoding if location hasn't changed
+    if (lastLocation && lastLocation.lat === latitude && lastLocation.lon === longitude) {
+        getWeatherDetails(lastLocation.cityName, latitude, longitude);
+        showLoading(locationButton, false);
+        return;
+    }
+
+    const REVERSE_GEOCODING_URL = `https://api.openweathermap.org/geo/1.0/reverse?lat=${latitude}&lon=${longitude}&limit=1&appid=${API_KEY}`;
+
+            
             fetch(REVERSE_GEOCODING_URL)
                 .then(res => {
                     if (!res.ok) throw new Error(`Error ${res.status}: Failed to reverse geocode location`);
@@ -184,8 +193,10 @@ const getUserCoordinates = () => {
                         return;
                     }
 
-                    const { name, country } = data[0];
-                    getWeatherDetails(`${name}, ${country}`, latitude, longitude);
+                    const cityName = `${data[0].name}, ${data[0].country}`;
+                    lastLocation = { lat: latitude, lon: longitude, cityName };
+                    getWeatherDetails(cityName, latitude, longitude);
+
                 })
                 .catch((error) => {
                     showLoading(locationButton, false);
