@@ -22,13 +22,31 @@
         <div class="weather-input">
             <h3>Enter a City Name</h3>
             <!-- input box for entering the city name -->
-            <input class="city-input" type="text" placeholder="E.g., New York, London,Tokyo">
-            <button class="search-btn">Search</button>
+            <input class="city-input" type="text" placeholder="E.g., New York, London, Tokyo" aria-label="City name input">
+            <button class="search-btn" aria-label="Search weather by city name">
+                <span class="btn-text">Search</span>
+                <div class="loading-spinner" style="display: none;"></div>
+            </button>
             <!-- search button to get weather data for the entered city -->
             <div class="separator"></div>
             <!-- optional separator for styling or layout -->
-            <button class="location-btn">Use Current Location</button>
+            <button class="location-btn" aria-label="Use current location for weather">
+                <span class="btn-text">Use Current Location</span>
+                <div class="loading-spinner" style="display: none;"></div>
+            </button>
             <!-- button to fetch weather data using the current location -->
+            
+            <!-- Error message container -->
+            <div class="error-message" style="display: none;"></div>
+            
+            <!-- Temperature unit toggle -->
+            <div class="unit-toggle">
+                <label class="toggle-switch">
+                    <input type="checkbox" id="unit-toggle" aria-label="Toggle temperature unit">
+                    <span class="slider"></span>
+                </label>
+                <span class="unit-labels">°C / °F</span>
+            </div>
         </div>
         <!-- section to display weather data -->
             <div class="weather-data">
