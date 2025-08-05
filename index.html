@@ -11,6 +11,11 @@
 <body>
     <!-- main heading of the page -->
     <h1>Weather Dashboard</h1>
+    <!-- Loading Spinner-->
+    <div class="loading-message" id="loading" style="display: none;">
+      <p>🌦️ Fetching weather data...</p>
+    </div>
+
     <!-- main container to hold all the weather input and display components -->
     <div class="container">
         <!-- section for user input to search by city or use current location -->
@@ -49,7 +54,7 @@
             <div class="current-weather">
                 <div class="details">
         <!-- Placeholder headings for displaying current city, temperature, wind speed, and humidity -->
-                    <h2>_______ ( _______ )</h2>
+                    <h2>__ Name __ ( __ Date __ )</h2>
                     <h4>Temp: ___°𝐂</h4>
                     <h4>Wind: __M/S</h4>
                     <h4>Humidity: __%</h4>
@@ -63,6 +68,7 @@
             <!-- each <li> represents a card for a day's forecast -->
                 <li class="card">
                 <h3>( _______ )</h3>
+                <h3>(__Day__)</h3>
                 <!-- placeholder for date or day -->
                 <h4>Temp: ___°𝐂</h4>
                 <h4>Wind: __M/S</h4>
@@ -71,24 +77,29 @@
                 <!-- repeat structure for remaining days -->
                 <li class="card">
                 <h3>( _______ )</h3>
+                <h3>(__Day__)</h3>
                 <h4>Temp: ___°𝐂</h4>
                 <h4>Wind: __M/S</h4>
                 <h4>Humidity: __%</h4>
                 </li>
                 <li class="card">
                 <h3>( _______ )</h3>
+                <h3>(__Day__)</h3>
                 <h4>Temp: ___°𝐂</h4>
                 <h4>Wind: __M/S</h4>
                 <h4>Humidity: __%</h4>
                 </li>
                 <li class="card">
+                    <h3>(__Day__)</h3>
                 <h3>( _______ )</h3>
                 <h4>Temp: ___°𝐂</h4>
                 <h4>Wind: __M/S</h4>
                 <h4>Humidity: __%</h4>
                 </li>
                 <li class="card">
+                    
                 <h3>( _______ )</h3>
+                <h3>(__Day__)</h3>
                 <h4>Temp: ___°𝐂</h4>
                 <h4>Wind: __M/S</h4>
                 <h4>Humidity: __%</h4>
