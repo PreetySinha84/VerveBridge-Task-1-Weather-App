@@ -181,6 +181,32 @@ input:checked + .slider:before {
     font-size: 0.9rem;
     font-weight: 500;
 }
+/* Recent City Button Styling */
+.recent-btn {
+  padding: 6px 14px;
+  margin: 6px 6px 0 0;
+  background-color: #e0e0e0;  /* Light background */
+  color: #000;                /* Dark text */
+  border: none;
+  border-radius: 6px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.recent-btn:hover {
+  background-color: #d0d0d0;
+}
+
+/* Dark mode support */
+body.dark-mode .recent-btn {
+  background-color: #2c2c2c;  /* Dark background */
+  color: #ffffff;             /* Light text */
+}
+
+body.dark-mode .recent-btn:hover {
+  background-color: #3a3a3a;
+}
 
 /* Weather card enhancements */
 .weather-cards .card {
