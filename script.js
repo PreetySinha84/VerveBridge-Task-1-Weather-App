@@ -5,6 +5,7 @@ const currentWeatherDiv = document.querySelector(".current-weather");
 const weatherCardsDiv = document.querySelector(".weather-cards");
 const errorMessageDiv = document.querySelector(".error-message");
 const unitToggle = document.querySelector("#unit-toggle");
+const recentCitiesContainer = document.getElementById("recentCities");
 
 const API_KEY = "15f12d856d7592b2e14dcda4352446ec";
 
@@ -14,7 +15,7 @@ let currentWeatherData = null;
 // Show error/success messages
 const showError = (message, isSuccess = false) => {
     errorMessageDiv.textContent = message;
-    errorMessageDiv.className = `error-message ${isSuccess ? 'success' : ''}`;
+    errorMessageDiv.className = error-message ${isSuccess ? 'success' : ''};
     errorMessageDiv.style.display = 'block';
     setTimeout(() => { errorMessageDiv.style.display = 'none'; }, 5000);
 };
@@ -85,11 +86,11 @@ const createWeatherCard = (cityName, weatherItem, index) => {
 
 // Fetch weather data
 const getWeatherDetails = (cityName, lat, lon) => {
-    const WEATHER_API_URL = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${API_KEY}`;
+    const WEATHER_API_URL = https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${API_KEY};
 
     fetch(WEATHER_API_URL)
         .then(res => {
-            if (!res.ok) throw new Error(`Error ${res.status}: Failed to fetch weather data`);
+            if (!res.ok) throw new Error(Error ${res.status}: Failed to fetch weather data);
             return res.json();
         })
         .then(data => {
@@ -114,7 +115,7 @@ const getWeatherDetails = (cityName, lat, lon) => {
                 }
             });
 
-            showError(`Weather data loaded successfully for ${cityName}!`, true);
+            showError(Weather data loaded successfully for ${cityName}!, true);
         })
         .catch((error) => {
             console.error('Weather API Error:', error);
@@ -129,31 +130,31 @@ const getCityCoordinates = () => {
 
     showLoading(searchButton, true);
 
-    const GEOCODING_API_URL = `https://api.openweathermap.org/geo/1.0/direct?q=${cityName}&limit=1&appid=${API_KEY}`;
+    const GEOCODING_API_URL = https://api.openweathermap.org/geo/1.0/direct?q=${cityName}&limit=1&appid=${API_KEY};
 
     fetch(GEOCODING_API_URL)
         .then(res => {
-            if (!res.ok) throw new Error(`Error ${res.status}: Unable to fetch city coordinates`);
+            if (!res.ok) throw new Error(Error ${res.status}: Unable to fetch city coordinates);
             return res.json();
         })
         .then(data => {
             showLoading(searchButton, false);
 
             if (!data.length || !data[0].name) {
-                showError(`City not found: "${cityName}". Please check the spelling.`);
+                showError(City not found: "${cityName}". Please check the spelling.);
                 return;
             }
 
             const result = data[0];
 
-            // ✅ Ensure near-exact match (block fuzzy matches)
             if (!result.name.toLowerCase().startsWith(cityName.toLowerCase())) {
-                showError(`No exact match found for "${cityName}". Did you mean "${result.name}, ${result.country}"?`);
+                showError(No exact match found for "${cityName}". Did you mean "${result.name}, ${result.country}"?);
                 return;
             }
 
             const { name, lat, lon, country } = result;
-            getWeatherDetails(`${name}, ${country}`, lat, lon);
+            updateSearchHistory(${name}, ${country});
+            getWeatherDetails(${name}, ${country}, lat, lon);
         })
         .catch((error) => {
             showLoading(searchButton, false);
@@ -162,6 +163,7 @@ const getCityCoordinates = () => {
         });
 };
 
+
 // Get user's current location
 const getUserCoordinates = () => {
     showLoading(locationButton, true);
@@ -169,11 +171,11 @@ const getUserCoordinates = () => {
     navigator.geolocation.getCurrentPosition(
         position => {
             const { latitude, longitude } = position.coords;
-            const REVERSE_GEOCODING_URL = `https://api.openweathermap.org/geo/1.0/reverse?lat=${latitude}&lon=${longitude}&limit=1&appid=${API_KEY}`;
+            const REVERSE_GEOCODING_URL = https://api.openweathermap.org/geo/1.0/reverse?lat=${latitude}&lon=${longitude}&limit=1&appid=${API_KEY};
 
             fetch(REVERSE_GEOCODING_URL)
                 .then(res => {
-                    if (!res.ok) throw new Error(`Error ${res.status}: Failed to reverse geocode location`);
+                    if (!res.ok) throw new Error(Error ${res.status}: Failed to reverse geocode location);
                     return res.json();
                 })
                 .then(data => {
@@ -185,7 +187,8 @@ const getUserCoordinates = () => {
                     }
 
                     const { name, country } = data[0];
-                    getWeatherDetails(`${name}, ${country}`, latitude, longitude);
+                    updateSearchHistory(${name}, ${country});
+                    getWeatherDetails(${name}, ${country}, latitude, longitude);
                 })
                 .catch((error) => {
                     showLoading(locationButton, false);
@@ -243,6 +246,34 @@ const handleSearchInput = () => {
     }, 300);
 };
 
+// City Search History Logic
+const updateSearchHistory = (city) => {
+    let history = JSON.parse(localStorage.getItem("cityHistory")) || [];
+
+    history = history.filter(item => item.toLowerCase() !== city.toLowerCase());
+    history.unshift(city);
+    if (history.length > 5) history = history.slice(0, 5);
+
+    localStorage.setItem("cityHistory", JSON.stringify(history));
+    renderCityHistory();
+};
+
+const renderCityHistory = () => {
+    const history = JSON.parse(localStorage.getItem("cityHistory")) || [];
+    recentCitiesContainer.innerHTML = "";
+
+    history.forEach(city => {
+        const btn = document.createElement("button");
+        btn.textContent = city;
+        btn.classList.add("recent-btn");
+        btn.addEventListener("click", () => {
+            cityInput.value = city;
+            getCityCoordinates();
+        });
+        recentCitiesContainer.appendChild(btn);
+    });
+};
+
 // Event listeners
 locationButton.addEventListener("click", getUserCoordinates);
 searchButton.addEventListener("click", getCityCoordinates);
@@ -253,6 +284,7 @@ unitToggle.addEventListener("change", toggleTemperatureUnit);
 // Initialize
 document.addEventListener('DOMContentLoaded', () => {
     cityInput.focus();
+    renderCityHistory();
     document.addEventListener('keydown', (e) => {
         if (e.ctrlKey && e.key === 'l') {
             e.preventDefault();
