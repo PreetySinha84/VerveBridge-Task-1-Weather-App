@@ -258,3 +258,4 @@ document.addEventListener('DOMContentLoaded', () => {
     });
     console.log('Weather App initialized successfully!');
 });
+}
