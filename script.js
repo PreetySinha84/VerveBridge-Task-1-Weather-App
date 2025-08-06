@@ -124,43 +124,40 @@ const getWeatherDetails = (cityName, lat, lon) => {
 
 // Get coordinates from city name
 const getCityCoordinates = () => {
-    const cityName = cityInput.value.trim();
-    if (!validateCityInput(cityName)) return;
+   const cityName = cityInput.value.trim(); // Gets the city name from the input field and trims any whitespace
 
-    showLoading(searchButton, true);
+// ✅ Basic input validation
+const validCityPattern = /^[a-zA-Z\s\-]{2,}$/; // Allows letters, spaces, hyphens
 
-    const GEOCODING_API_URL = `https://api.openweathermap.org/geo/1.0/direct?q=${cityName}&limit=1&appid=${API_KEY}`;
+if (!cityName) {
+    alert("Please enter a city name.");
+    return;
+}
+if (!validCityPattern.test(cityName)) {
+    alert("Please enter a valid city name (letters only).");
+    return;
+}
 
-    fetch(GEOCODING_API_URL)
-        .then(res => {
-            if (!res.ok) throw new Error(`Error ${res.status}: Unable to fetch city coordinates`);
-            return res.json();
-        })
-        .then(data => {
-            showLoading(searchButton, false);
+const GEOCODING_API_URL = `https://api.openweathermap.org/geo/1.0/direct?q=${cityName}&limit=1&appid=${API_KEY}`;
 
-            if (!data.length || !data[0].name) {
-                showError(`City not found: "${cityName}". Please check the spelling.`);
-                return;
-            }
+fetch(GEOCODING_API_URL)
+    .then(res => {
+        if (!res.ok) throw new Error(`Error ${res.status}: Unable to fetch city coordinates`);
+        return res.json();
+    })
+    .then(data => {
+        if (!data.length || !data[0].name) {
+            alert(`City not found: "${cityName}". Please check the spelling.`);
+            return;
+        }
 
-            const result = data[0];
+        const { name, lat, lon } = data[0]; // Destructures the first result from the data
+        getWeatherDetails(name, lat, lon); // Calls the function to get weather details using coordinates
+    })
+    .catch(() => {
+        alert("An error occurred while fetching the coordinates!"); // Error handling for failed API request
+    });
 
-            // ✅ Ensure near-exact match (block fuzzy matches)
-            if (!result.name.toLowerCase().startsWith(cityName.toLowerCase())) {
-                showError(`No exact match found for "${cityName}". Did you mean "${result.name}, ${result.country}"?`);
-                return;
-            }
-
-            const { name, lat, lon, country } = result;
-            getWeatherDetails(`${name}, ${country}`, lat, lon);
-        })
-        .catch((error) => {
-            showLoading(searchButton, false);
-            console.error('Geocoding API Error:', error);
-            showError("Network error or invalid city. Please check your connection.");
-        });
-};
 
 // Get user's current location
 const getUserCoordinates = () => {
@@ -261,3 +258,4 @@ document.addEventListener('DOMContentLoaded', () => {
     });
     console.log('Weather App initialized successfully!');
 });
+}
