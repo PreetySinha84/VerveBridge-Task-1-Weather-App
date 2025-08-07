@@ -1,101 +1,59 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <!--metadata and links for styling and scripts-->
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="script.js" defer></script> <!-- links the JavaScript file, scripts.js,and defer loading until HTML is parsed -->
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="script.js" defer></script>
     <title>Weather App</title>
-    <link rel="stylesheet" href="style.css"> <!-- links the CSS file, style.css, for styling -->
+    <link rel="stylesheet" href="style.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <!-- main heading of the page -->
-    <h1>Weather Dashboard</h1>
-    <!-- main container to hold all the weather input and display components -->
+    <h1 class="main-title">Weather Dashboard</h1>
     <div class="container">
-        <!-- section for user input to search by city or use current location -->
         <div class="weather-input">
             <h3>Enter a City Name</h3>
-            <!-- input box for entering the city name -->
-            <input class="city-input" type="text" placeholder="E.g., New York, London, Tokyo" aria-label="City name input">
+            <input class="city-input" type="text" placeholder="E.g., New York, London, Tokyo" aria-label="City name input" />
             <button class="search-btn" aria-label="Search weather by city name">
                 <span class="btn-text">Search</span>
                 <div class="loading-spinner" style="display: none;"></div>
             </button>
-            <!-- search button to get weather data for the entered city -->
             <div class="separator"></div>
-            <!-- optional separator for styling or layout -->
             <button class="location-btn" aria-label="Use current location for weather">
                 <span class="btn-text">Use Current Location</span>
                 <div class="loading-spinner" style="display: none;"></div>
             </button>
-            <!-- button to fetch weather data using the current location -->
-            
-            <!-- Error message container -->
             <div class="error-message" style="display: none;"></div>
-            
-            <!-- Temperature unit toggle -->
             <div class="unit-toggle">
                 <label class="toggle-switch">
-                    <input type="checkbox" id="unit-toggle" aria-label="Toggle temperature unit">
+                    <input type="checkbox" id="unit-toggle" aria-label="Toggle temperature unit" />
                     <span class="slider"></span>
                 </label>
                 <span class="unit-labels">°C / °F</span>
             </div>
         </div>
-        <!-- section to display weather data -->
-            <div class="weather-data">
-        <!-- current weather details container -->
+
+        <div class="weather-data">
             <div class="current-weather">
                 <div class="details">
-        <!-- Placeholder headings for displaying current city, temperature, wind speed, and humidity -->
                     <h2>_______ ( _______ )</h2>
-                    <h4>Temp: ___°𝐂</h4>
-                    <h4>Wind: __M/S</h4>
+                    <h4>Temp: ___°C</h4>
+                    <h4>Wind: __ M/S</h4>
                     <h4>Humidity: __%</h4>
-             </div>
+                </div>
+            </div>
+
+            <div class="days-forecast">
+                <h2>5-Day Forecast</h2>
+                <ul class="weather-cards">
+                    <li class="card"><h3>( _______ )</h3><h4>Temp: ___°C</h4><h4>Wind: __ M/S</h4><h4>Humidity: __%</h4></li>
+                    <li class="card"><h3>( _______ )</h3><h4>Temp: ___°C</h4><h4>Wind: __ M/S</h4><h4>Humidity: __%</h4></li>
+                    <li class="card"><h3>( _______ )</h3><h4>Temp: ___°C</h4><h4>Wind: __ M/S</h4><h4>Humidity: __%</h4></li>
+                    <li class="card"><h3>( _______ )</h3><h4>Temp: ___°C</h4><h4>Wind: __ M/S</h4><h4>Humidity: __%</h4></li>
+                    <li class="card"><h3>( _______ )</h3><h4>Temp: ___°C</h4><h4>Wind: __ M/S</h4><h4>Humidity: __%</h4></li>
+                </ul>
+            </div>
         </div>
-        <!-- section to display a 5-day forecast -->
-        <div class="days-forecast">
-            <h2>5-Days Forecast</h2>
-            <!-- unordered list to hold individual forecast cards for each day -->
-            <ul class="weather-cards">
-            <!-- each <li> represents a card for a day's forecast -->
-                <li class="card">
-                <h3>( _______ )</h3>
-                <!-- placeholder for date or day -->
-                <h4>Temp: ___°𝐂</h4>
-                <h4>Wind: __M/S</h4>
-                <h4>Humidity: __%</h4>
-                </li>
-                <!-- repeat structure for remaining days -->
-                <li class="card">
-                <h3>( _______ )</h3>
-                <h4>Temp: ___°𝐂</h4>
-                <h4>Wind: __M/S</h4>
-                <h4>Humidity: __%</h4>
-                </li>
-                <li class="card">
-                <h3>( _______ )</h3>
-                <h4>Temp: ___°𝐂</h4>
-                <h4>Wind: __M/S</h4>
-                <h4>Humidity: __%</h4>
-                </li>
-                <li class="card">
-                <h3>( _______ )</h3>
-                <h4>Temp: ___°𝐂</h4>
-                <h4>Wind: __M/S</h4>
-                <h4>Humidity: __%</h4>
-                </li>
-                <li class="card">
-                <h3>( _______ )</h3>
-                <h4>Temp: ___°𝐂</h4>
-                <h4>Wind: __M/S</h4>
-                <h4>Humidity: __%</h4>
-                </li>
-           </ul>
-    </div>
-</div>
     </div>
 </body>
 </html>
